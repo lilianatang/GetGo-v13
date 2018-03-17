@@ -27,6 +27,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String KEY_ID = "id";
     private static final String KEY_FIRSTNAME = "first_name";
     private static final String KEY_LASTNAME = "last_name";
+    private static final String KEY_CITY = "city";
+    private static final String KEY_PROVINCE = "province";
+    private static final String KEY_POSTALCODE = "postal_code";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_UID = "uid";
     private static final String KEY_CREATED_AT = "created_at";
@@ -40,6 +43,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_USER + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_FIRSTNAME + " TEXT," + KEY_LASTNAME + " TEXT,"
+                + KEY_CITY + " TEXT," + KEY_PROVINCE + " TEXT," + KEY_POSTALCODE + " TEXT,"
                 + KEY_EMAIL + " TEXT UNIQUE," + KEY_UID + " TEXT,"
                 + KEY_CREATED_AT + " TEXT" + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
@@ -60,12 +64,15 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     /**
      * Storing user details in database
      * */
-    public void addUser(String first_name, String last_name, String email, String uid, String created_at) {
+    public void addUser(String first_name, String last_name, String city, String province, String postal_code, String email, String uid, String created_at) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_FIRSTNAME, first_name); // First Name
         values.put(KEY_LASTNAME, last_name); // Last Name
+        values.put(KEY_CITY, city); // City
+        values.put(KEY_PROVINCE, province); // Province
+        values.put(KEY_POSTALCODE, postal_code); // Postal Code
         values.put(KEY_EMAIL, email); // Email
         values.put(KEY_UID, uid); // UID
         values.put(KEY_CREATED_AT, created_at); // Created At
@@ -91,9 +98,12 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         if (cursor.getCount() > 0) {
             user.put("first_name", cursor.getString(1));
             user.put("last_name", cursor.getString(2));
-            user.put("email", cursor.getString(3));
-            user.put("uid", cursor.getString(4));
-            user.put("created_at", cursor.getString(5));
+            user.put("city", cursor.getString(3));
+            user.put("province", cursor.getString(4));
+            user.put("postal_code", cursor.getString(5));
+            user.put("email", cursor.getString(6));
+            user.put("uid", cursor.getString(7));
+            user.put("created_at", cursor.getString(8));
         }
         cursor.close();
         db.close();
