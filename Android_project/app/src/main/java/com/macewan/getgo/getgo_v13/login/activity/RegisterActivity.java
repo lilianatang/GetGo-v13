@@ -35,6 +35,9 @@ public class RegisterActivity extends Activity {
     private Button btnLinkToLogin;
     private EditText inputFirstName;
     private EditText inputLastName;
+    private EditText inputCity;
+    private EditText inputProvince;
+    private EditText inputPostalCode;
     private EditText inputEmail;
     private EditText inputPassword;
     private ProgressDialog pDialog;
@@ -48,6 +51,9 @@ public class RegisterActivity extends Activity {
 
         inputFirstName = (EditText) findViewById(R.id.first_name);
         inputLastName = (EditText) findViewById(R.id.last_name);
+        inputCity = (EditText) findViewById(R.id.city);
+        inputProvince = (EditText) findViewById(R.id.province);
+        inputPostalCode = (EditText) findViewById(R.id.postal_code);
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
         btnRegister = (Button) findViewById(R.id.btnRegister);
@@ -77,11 +83,14 @@ public class RegisterActivity extends Activity {
             public void onClick(View view) {
                 String first_name = inputFirstName.getText().toString().trim();
                 String last_name = inputLastName.getText().toString().trim();
+                String city = inputCity.getText().toString().trim();
+                String province = inputProvince.getText().toString().trim();
+                String postal_code = inputPostalCode.getText().toString().trim();
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
-                if (!first_name.isEmpty() && !last_name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-                    registerUser(first_name, last_name, email, password);
+                if (!first_name.isEmpty() && !last_name.isEmpty() && !city.isEmpty() && !province.isEmpty() && !postal_code.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+                    registerUser(first_name, last_name, city, province, postal_code, email, password);
                 } else {
                     Toast.makeText(getApplicationContext(),
                             "Please enter your details!", Toast.LENGTH_LONG)
@@ -107,7 +116,8 @@ public class RegisterActivity extends Activity {
      * Function to store user in MySQL database will post params(tag, name,
      * email, password) to register url
      * */
-    private void registerUser(final String first_name, final String last_name, final String email,
+    private void registerUser(final String first_name, final String last_name, final String city,
+                              final String province, final String postal_code, final String email,
                               final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
@@ -180,8 +190,11 @@ public class RegisterActivity extends Activity {
             protected Map<String, String> getParams() {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("name", first_name);
-                params.put("name", last_name);
+                params.put("first_name", first_name);
+                params.put("last_name", last_name);
+                params.put("city", city);
+                params.put("province", province);
+                params.put("postal_code", postal_code);
                 params.put("email", email);
                 params.put("password", password);
 
