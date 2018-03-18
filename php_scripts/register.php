@@ -7,7 +7,7 @@ $db = new DB_Functions();
 // json response array
 $response = array("error" => FALSE);
 
-if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])) {
+if (isset($_POST['first_name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['last_name']) && isset($_POST['city']) && isset($_POST['province']) && isset($_POST['postal_code'])) {
 
     // receiving the post params
     $first_name = $_POST['first_name'];
@@ -30,7 +30,7 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
         if ($user) {
             // user stored successfully
             $response["error"] = FALSE;
-            $response["uid"] = $user["unique_id"];
+            $response["uid"] = $user["student_id"];
             $response["user"]["first_name"] = $user["first_name"];
             $response["user"]["last_name"] = $user["last_name"];
             $response["user"]["city"] = $user["city"];
