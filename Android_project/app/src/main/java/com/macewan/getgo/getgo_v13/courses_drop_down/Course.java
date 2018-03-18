@@ -1,4 +1,6 @@
 package com.macewan.getgo.getgo_v13.courses_drop_down;
+/* Author: Siham and Liliana
+*/
 
 public class Course {
 
