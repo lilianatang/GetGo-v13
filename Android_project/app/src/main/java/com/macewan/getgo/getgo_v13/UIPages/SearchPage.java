@@ -1,4 +1,4 @@
-package com.example.getgo.uidesign.UIHelpers;
+package com.macewan.getgo.getgo_v13.UIPages;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,11 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
-import com.example.getgo.uidesign.Containers.ContainerAdapter;
-import com.example.getgo.uidesign.Containers.DegreeContainer;
-import com.example.getgo.uidesign.ObjectClass.Results;
-import com.example.getgo.uidesign.ObjectClass.Singleton;
-import com.example.getgo.uidesign.ObjectClass.Student;
+import com.macewan.getgo.getgo_v13.Containers.ContainerAdapter;
+import com.macewan.getgo.getgo_v13.Containers.DegreeContainer;
+import com.macewan.getgo.getgo_v13.ObjectClass.Results;
+import com.macewan.getgo.getgo_v13.ObjectClass.Singleton;
+import com.macewan.getgo.getgo_v13.ObjectClass.Student;
 import com.example.getgo.uidesign.R;
 import android.view.View.*;
 import android.view.*;
@@ -26,7 +26,7 @@ import java.util.List;
  * Created by Siham on 2018-03-16.
  */
 
-public class activity_main extends Activity{
+public class SearchPage extends Activity{
 
     private AutoCompleteTextView autoCompleteTextView;
     public ArrayAdapter<String> adapter_degrees;

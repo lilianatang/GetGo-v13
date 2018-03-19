@@ -1,4 +1,4 @@
-package com.example.getgo.uidesign.ObjectClass;
+package com.macewan.getgo.getgo_v13.ObjectClass;
 
 import android.content.Context;
 import android.util.Log;

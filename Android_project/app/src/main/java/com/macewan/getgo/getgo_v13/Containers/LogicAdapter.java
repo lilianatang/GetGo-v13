@@ -1,4 +1,4 @@
-package com.example.getgo.uidesign.Containers;
+package com.macewan.getgo.getgo_v13.Containers;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

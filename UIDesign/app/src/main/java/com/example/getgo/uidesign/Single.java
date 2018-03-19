@@ -3,16 +3,14 @@ package com.example.getgo.uidesign;
 import android.content.Context;
 import android.util.Log;
 
-import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.getgo.uidesign.ObjectClass.Student;
-import com.example.getgo.uidesign.ObjectClass.Singleton;
+import com.macewan.getgo.getgo_v13.ObjectClass.Student;
+import com.macewan.getgo.getgo_v13.ObjectClass.Singleton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

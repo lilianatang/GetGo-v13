@@ -9,22 +9,21 @@ import android.util.Log;
 import android.widget.Button;
 import android.content.Intent;
 
-import com.example.getgo.uidesign.ObjectClass.Departments;
+import com.macewan.getgo.getgo_v13.ObjectClass.Departments;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import android.view.View;
 
-import com.example.getgo.uidesign.Containers.ContainerAdapter;
-import com.example.getgo.uidesign.Containers.DegreeContainer;
-import com.example.getgo.uidesign.Containers.InstitutionContainer;
-import com.example.getgo.uidesign.ObjectClass.Singleton;
-import com.example.getgo.uidesign.ObjectClass.Student;
-import com.example.getgo.uidesign.UIHelpers.activity_main;
+import com.macewan.getgo.getgo_v13.Containers.ContainerAdapter;
+import com.macewan.getgo.getgo_v13.Containers.DegreeContainer;
+import com.macewan.getgo.getgo_v13.Containers.InstitutionContainer;
+import com.macewan.getgo.getgo_v13.ObjectClass.Singleton;
+import com.macewan.getgo.getgo_v13.UIHelpers.activity_main;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class HomePage extends AppCompatActivity {
 
     RecyclerView recyclerView;
     RecyclerView recyclerView2;
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.second_layout);
+        setContentView(R.layout.homelayout);
         s = Singleton.getInstance(this.getBaseContext());
 
 

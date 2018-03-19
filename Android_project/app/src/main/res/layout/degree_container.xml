@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.example.getgo.uidesign.MainActivity"
+    tools:context="com.macewan.getgo.getgo_v13.MainActivity"
     tools:layout_editor_absoluteY="25dp">
 
 

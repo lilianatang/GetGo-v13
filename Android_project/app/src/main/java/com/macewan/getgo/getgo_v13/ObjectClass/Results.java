@@ -1,11 +1,10 @@
-package com.example.getgo.uidesign.ObjectClass;
+package com.macewan.getgo.getgo_v13.ObjectClass;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.content.Intent;
 import com.example.getgo.uidesign.R;
 import java.util.*;
-import com.example.getgo.uidesign.UIHelpers.*;
 
 /**
  * Created by Siham on 2018-03-19.

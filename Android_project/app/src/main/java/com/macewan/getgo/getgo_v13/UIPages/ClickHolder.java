@@ -1,4 +1,4 @@
-package com.example.getgo.uidesign.UIHelpers;
+package com.macewan.getgo.getgo_v13.UIPages;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
