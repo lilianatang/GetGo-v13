@@ -3,7 +3,7 @@ package com.macewan.getgo.getgo_v13.ObjectClass;
 import android.app.Activity;
 import android.os.Bundle;
 import android.content.Intent;
-import com.example.getgo.uidesign.R;
+import com.macewan.getgo.getgo_v13.R;
 import java.util.*;
 
 /**

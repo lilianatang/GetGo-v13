@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.getgo.uidesign.ObjectClass.Results;
-import com.example.getgo.uidesign.R;
+import com.macewan.getgo.getgo_v13.ObjectClass.Results;
+import com.macewan.getgo.getgo_v13.R;
 
 import java.util.List;
 

@@ -14,7 +14,7 @@ import com.macewan.getgo.getgo_v13.Containers.DegreeContainer;
 import com.macewan.getgo.getgo_v13.ObjectClass.Results;
 import com.macewan.getgo.getgo_v13.ObjectClass.Singleton;
 import com.macewan.getgo.getgo_v13.ObjectClass.Student;
-import com.example.getgo.uidesign.R;
+import com.macewan.getgo.getgo_v13.R;
 import android.view.View.*;
 import android.view.*;
 //import com.example.getgo.uidesign.Singlet;
@@ -44,7 +44,7 @@ public class SearchPage extends Activity{
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.searchall);
+        setContentView(R.layout.searchlayout);
 
         //button initialize
         degree = findViewById(R.id.degree_button);
@@ -81,7 +81,7 @@ public class SearchPage extends Activity{
 
         enter.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent(activity_main.this, Results.class);
+                Intent intent = new Intent(SearchPage.this, Results.class);
                 intent.putExtra("list", names.toString());
                 startActivity(intent);
             }

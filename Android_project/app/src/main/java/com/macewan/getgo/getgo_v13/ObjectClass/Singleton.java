@@ -6,7 +6,7 @@ import android.util.Log;
 import com.android.volley.*;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.getgo.uidesign.AppConfig;
+import com.macewan.getgo.getgo_v13.login.app.AppConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.getgo.uidesign.R;
+import com.macewan.getgo.getgo_v13.R;
 
 import java.util.List;
 
@@ -46,7 +46,7 @@ public class ContainerAdapter extends RecyclerView.Adapter<ContainerAdapter.Prod
         LayoutInflater inflater = LayoutInflater.from(context);
         ProductViewHolder holder;
         if(containerDegreeList != null){
-            View view = inflater.inflate(R.layout.container, null);
+            View view = inflater.inflate(R.layout.general_container, null);
             holder = new ProductViewHolder(view);
         }
         else {
