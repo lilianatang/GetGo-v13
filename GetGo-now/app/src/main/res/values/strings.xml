@@ -13,4 +13,11 @@
     <string name="btn_logout">LOGOUT</string>
     <string name="name">Fullname</string>
 
+
+    <!-- For Courses Drop Down Screen -->
+    <string name="add">ADD</string>
+    <string name="enter_course_name">Enter Course Name</string>
+    <string name="enter_mark">Enter Mark</string>
+    <string name="percent">%</string>
+
 </resources>
