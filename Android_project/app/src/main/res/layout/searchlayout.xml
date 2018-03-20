@@ -4,35 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.macewan.getgo.getgo_v13.MainActivity"
+
+    tools:context="com.macewan.getgo.getgo_v13.UIPages.SearchPage"
     tools:layout_editor_absoluteY="25dp">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardView3"
-        android:layout_width="344dp"
-        android:layout_height="98dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="374dp"
+        android:layout_height="114dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.017">
+        tools:layout_editor_absoluteY="6dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="111dp"
             android:background="@drawable/toolbar">
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteTextView"
                 android:layout_width="258dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginEnd="33dp"
-                android:layout_marginRight="33dp"
+                android:layout_above="@+id/city_button"
+                android:layout_centerHorizontal="true"
                 android:singleLine="true"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -53,8 +47,7 @@
                 android:layout_width="118dp"
                 android:layout_height="56dp"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/degree_button"
                 android:backgroundTint="@android:color/transparent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:layout_editor_absoluteY="123dp" />
@@ -63,9 +56,8 @@
                 android:id="@+id/city_button"
                 android:layout_width="118dp"
                 android:layout_height="59dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignTop="@+id/degree_button"
+                android:layout_alignParentBottom="true"
+                android:layout_toEndOf="@+id/degree_button"
                 android:backgroundTint="@android:color/transparent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:layout_editor_absoluteY="120dp" />
@@ -76,30 +68,27 @@
     <Button
         android:id="@+id/explore"
         android:layout_width="232dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="36dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorAccent"
         android:text="Explore"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.565"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView3"
-        app:layout_constraintVertical_bias="0.002" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView3" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="317dp"
-        android:layout_height="395dp"
+        android:layout_width="350dp"
+        android:layout_height="340dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/explore"
+        app:layout_constraintTop_toTopOf="@+id/explore"
+        app:layout_constraintVertical_bias="0.8"
         tools:ignore="UnknownId" />
 
-
-    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>
