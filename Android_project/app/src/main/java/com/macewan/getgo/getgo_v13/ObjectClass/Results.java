@@ -23,6 +23,5 @@ public class Results extends Activity {
         Intent intent = getIntent();
         String list = intent.getParcelableExtra("list");
         List<String> items = Arrays.asList(list.split("\\s*,\\s*"));
-
     }
 }
