@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.macewan.getgo.getgo_now.R;
+import com.macewan.getgo.getgo_now.UIPages.HomePage;
+import com.macewan.getgo.getgo_now.UIPages.SearchPage;
 import com.macewan.getgo.getgo_now.app.AppConfig;
 import com.macewan.getgo.getgo_now.app.AppController;
 import com.macewan.getgo.getgo_now.helper.SQLiteHandler;
@@ -142,7 +144,7 @@ public class LoginActivity extends Activity {
 
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,
-                                MainActivity.class);
+                                HomePage.class);
                         startActivity(intent);
                         finish();
                     } else {
