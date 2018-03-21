@@ -27,6 +27,7 @@ import com.macewan.getgo.getgo_now.app.AppConfig;
 import com.macewan.getgo.getgo_now.app.AppController;
 import com.macewan.getgo.getgo_now.helper.SQLiteHandler;
 import com.macewan.getgo.getgo_now.helper.SessionManager;
+import com.macewan.getgo.getgo_now.courses_drop_down.CoursesActivity;
 
 public class LoginActivity extends Activity {
     private static final String TAG = RegisterActivity.class.getSimpleName();
@@ -61,7 +62,8 @@ public class LoginActivity extends Activity {
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, CoursesActivity.class);
             startActivity(intent);
             finish();
         }
@@ -141,8 +143,10 @@ public class LoginActivity extends Activity {
                         db.addUser(name, email, uid, created_at);
 
                         // Launch main activity
+                        /*Intent intent = new Intent(LoginActivity.this,
+                                MainActivity.class); */
                         Intent intent = new Intent(LoginActivity.this,
-                                MainActivity.class);
+                                CoursesActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
