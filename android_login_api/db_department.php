@@ -1,3 +1,4 @@
+
 <?php
 // Used to display message that user has been created.
 session_start();
