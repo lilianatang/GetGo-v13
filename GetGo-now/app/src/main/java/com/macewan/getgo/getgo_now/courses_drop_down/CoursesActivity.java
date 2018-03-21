@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -28,6 +29,7 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
     /*These values are being referenced from the xml files*/
     private Button btnAdd;
     private Button btnDelete;
+    private Button btnSubmit;
     private ListView lv;
     private AutoCompleteTextView course_box;
     private EditText mark_box;
@@ -58,6 +60,8 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
         btnDelete.setOnClickListener(this);
         btnAdd = findViewById(R.id.add_button);
         btnAdd.setOnClickListener(this);
+        btnSubmit = findViewById(R.id.submit_button);
+        btnSubmit.setOnClickListener(this);
 
         lv = findViewById(R.id.listView);
 
@@ -76,26 +80,46 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
 
     }
 
+        //update the dictionary
+    public HashMap after_add(String course, int mark){
+        HashMap<String, Integer>lst =  new HashMap<>();
+        lst.put(course, mark);
+        return lst;
+    }
+
+    public HashMap after_delete(String course, HashMap dict){
+        dict.remove(course);
+        return dict;
+    }
+
     //When buttton is clicked, joins the strings and places in tex box
     public void onClick(View v) {
+        HashMap<String, Integer> courses_marks = new HashMap<>();
         String course_name = course_box.getText().toString();
         String course_mark = mark_box.getText().toString();
+        int marks = Integer.parseInt(mark_box.getText().toString());
         switch (v.getId()){
             //Add button clicked
             case R.id.add_button:
                 if (course_mark.length() > 0 && course_mark.length() > 0) {
                     String join = course_name + "    " + course_mark + "%";
+                    courses_marks = after_add(course_name, marks);
                     adapter.add(join);
                     mark_box.setText("");
                     course_box.setText("");
                     Log.d("list_tag", "In List:  " + adapter.getItem(0));
                 }
+                break;
                 //Delete button clicked, call remove
             case R.id.delete:
                 if(positionDelete >=0){
                     list.remove(positionDelete);
                     adapter.notifyDataSetChanged();
                 }
+                break;
+
+            case R.id.submit_button:
+
         }
     }
 }
