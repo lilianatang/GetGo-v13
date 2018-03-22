@@ -2,6 +2,8 @@ package com.macewan.getgo.getgo_now.courses_drop_down;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.macewan.getgo.getgo_now.app.AppConfig;
+
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -46,7 +48,7 @@ public class Singleton extends AsyncTask <String,Void, JsonObject>{
 
         /* Getting the URL connection: change to specific IP port and not localhost*/
         try {
-            URL url = new URL("http://10.60.14.168:8888/android_login_api/get_all_courses.php");
+            URL url = new URL(AppConfig.URL_COURSE);
             con =  url.openConnection();
 
         } catch (Exception e) {

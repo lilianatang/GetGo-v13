@@ -30,6 +30,7 @@ import com.macewan.getgo.getgo_now.app.AppController;
 import com.macewan.getgo.getgo_now.helper.SQLiteHandler;
 import com.macewan.getgo.getgo_now.helper.SessionManager;
 import com.macewan.getgo.getgo_now.courses_drop_down.CoursesActivity;
+import com.macewan.getgo.getgo_now.logic.LogicDB;
 
 public class LoginActivity extends Activity {
     private static final String TAG = RegisterActivity.class.getSimpleName();
@@ -65,6 +66,7 @@ public class LoginActivity extends Activity {
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
             //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
             Intent intent = new Intent(LoginActivity.this, CoursesActivity.class);
             startActivity(intent);
             finish();

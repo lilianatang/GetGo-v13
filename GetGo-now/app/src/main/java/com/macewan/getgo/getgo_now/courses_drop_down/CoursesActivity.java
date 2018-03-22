@@ -6,8 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.macewan.getgo.getgo_now.UIPages.HomePage;
-import com.macewan.getgo.getgo_now.UIPages.SearchPage;
-import com.macewan.getgo.getgo_now.courses_drop_down.CourseObject;
+import com.macewan.getgo.getgo_now.logic.LogicDB;
+import com.macewan.getgo.getgo_now.logic.LogicObject;
+
 import android.util.Log;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -19,8 +20,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Author: Siham and Liliana
@@ -55,6 +54,10 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
         adapter_classes = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item);
         new Singleton(adapter_classes).execute();
 
+        //Load DB in LogicClass
+        LogicDB caa = LogicDB.getInstance(this.getBaseContext());
+        //caa.logic_object.getDepartmentNames();
+
         autoCompleteTextView.setAdapter(adapter_classes);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, list);
 
@@ -76,8 +79,6 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 // list.remove(position);
                 positionDelete = position;
-
-
             }
         });
 

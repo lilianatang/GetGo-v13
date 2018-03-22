@@ -19,11 +19,11 @@ import org.json.JSONObject;
 public class Singleton {
 
     private static Singleton singleton = null;
-    private RequestQueue mRequestQueue = null;
+    private static RequestQueue mRequestQueue = null;
     private static Context mCtx;
     public static Student student = null;
 
-    private Singleton(Context context) {
+    public Singleton(Context context) {
         mCtx = context;
         mRequestQueue = getRequestQueue();
         loadDepartments(AppConfig.URL_DEPARTMENT);
@@ -34,11 +34,12 @@ public class Singleton {
         if (singleton == null) {
             singleton = new Singleton(context);
         }
+        mCtx = context;
         return singleton;
     }
 
         //Builds a requestQueue if none not already made.
-    public RequestQueue getRequestQueue() {
+    public static RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
             mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
         }
@@ -73,7 +74,7 @@ public class Singleton {
        student.department = p3.department;
     }
 
-    public <T> void addToRequestQueue(Request<T> req) {
+    public static <T> void addToRequestQueue(Request<T> req) {
         getRequestQueue().add(req);
     }
 /*

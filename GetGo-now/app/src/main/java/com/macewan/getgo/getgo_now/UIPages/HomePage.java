@@ -22,6 +22,8 @@ import java.util.*;
  */
 import com.macewan.getgo.getgo_now.R;
 import com.macewan.getgo.getgo_now.courses_drop_down.CourseObject;
+import com.macewan.getgo.getgo_now.logic.LogicDB;
+import com.macewan.getgo.getgo_now.logic.LogicObject;
 
 import android.view.View.OnClickListener;
 
@@ -57,7 +59,10 @@ public class HomePage extends AppCompatActivity {
         lst3 = CourseObject.getCourses(null);
         Log.d("IN HOME!!", "onClick: " + lst3.toString());
 
+       // LogicObject ca;
+        //ca  = LogicDB.getInstance(this.getBaseContext());
 
+      //  departments = ca.getDepartmentNames();
         //Fill Both RecyclerViews
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);

@@ -6,11 +6,11 @@ package com.macewan.getgo.getgo_now.ObjectClass;
 
 public class Departments {
 
-   int department_id;
-   int university_id;
+   public int department_id;
+   public int university_id;
    public String department_name;
-   int average_mark;
-   String description;
+   public int average_mark;
+   public String description;
 
     public Departments(int department_id, int university_id, String department_name, int average_mark, String description) {
         this.department_id = department_id;
@@ -18,5 +18,25 @@ public class Departments {
         this.department_name = department_name;
         this.average_mark = average_mark;
         this.description = description;
+    }
+
+    public int getDepartment_id() {
+        return department_id;
+    }
+
+    public int getUniversity_id() {
+        return university_id;
+    }
+
+    public String getDepartment_name() {
+        return department_name;
+    }
+
+    public int getAverage_mark() {
+        return average_mark;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
