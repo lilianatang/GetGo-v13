@@ -29,6 +29,7 @@ public class LogicObject {
     public static String courses;
     public static String department;
     public static String institution;
+    
 /*
     public ArrayList<String> getDepartmentNames(){
         ArrayList<String> nameList = new ArrayList<String>();

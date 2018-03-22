@@ -22,6 +22,7 @@ import java.util.*;
  */
 import com.macewan.getgo.getgo_now.R;
 import com.macewan.getgo.getgo_now.courses_drop_down.CourseObject;
+import com.macewan.getgo.getgo_now.logic.GetDatabase;
 import com.macewan.getgo.getgo_now.logic.LogicDB;
 import com.macewan.getgo.getgo_now.logic.LogicObject;
 
@@ -59,12 +60,16 @@ public class HomePage extends AppCompatActivity {
         lst3 = CourseObject.getCourses(null);
         Log.d("IN HOME!!", "onClick: " + lst3.toString());
 
-        LogicDB ca;
-        ca  = LogicDB.getInstance(this.getBaseContext());
-        String department2 = ca.logic_object.department;
+        LogicDB jsonData;
+
+        jsonData  = LogicDB.getInstance(this.getBaseContext());
+        String department2 = jsonData.logic_object.department;
         Log.d("DEPARTMENT STRING!!!", "onCreate: " + department2);
 
-      //  departments = ca.getDepartmentNames();
+        GetDatabase db = new GetDatabase(jsonData.logic_object.conditions,jsonData.logic_object.condition_links,jsonData.logic_object.groups,jsonData.logic_object.courses,jsonData.logic_object.institution,jsonData.logic_object.department);
+
+
+        //  departments = ca.getDepartmentNames();
         //Fill Both RecyclerViews
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
