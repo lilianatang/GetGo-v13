@@ -16,13 +16,15 @@ public class GetDatabase {
     public Groups[] groupsList;
     public Course[] courseList;
     public Institutions[] institutionsList;
+    public Departments[] departmentsList;
 
-    public GetDatabase(String conditionJson, String linksJson, String groupsJson, String courseJson, String institutionJson) {
+    public GetDatabase(String conditionJson, String linksJson, String groupsJson, String courseJson, String institutionJson, String departmentJson) {
         conditionsList = parseCondition(conditionJson);
         conditionLinksList = parseConditionLinks(linksJson);
         groupsList = parseGroups(groupsJson);
         courseList = parseCourses(courseJson);
         institutionsList = parseInstitutions(institutionJson);
+        departmentsList = parseDepartments(departmentJson);
     }
 
     public static String parseJson(String json, String key) {
@@ -40,36 +42,31 @@ public class GetDatabase {
 
     private static Conditions[] parseCondition(String json) {
         Gson gson = new Gson();
-        Conditions[] conditions = gson.fromJson(json, Conditions[].class);
-
-        return conditions;
+        return gson.fromJson(json, Conditions[].class);
     }
 
     private static ConditionLinks[] parseConditionLinks(String json) {
         Gson gson = new Gson();
-        ConditionLinks[] links = gson.fromJson(json, ConditionLinks[].class);
-
-        return links;
+        return gson.fromJson(json, ConditionLinks[].class);
     }
 
     private static Groups[] parseGroups(String json) {
         Gson gson = new Gson();
-        Groups[] groups = gson.fromJson(json, Groups[].class);
-
-        return groups;
+        return gson.fromJson(json, Groups[].class);
     }
 
     private static Course[] parseCourses(String json) {
         Gson gson = new Gson();
-        Course[] courses = gson.fromJson(json, Course[].class);
-
-        return courses;
+        return gson.fromJson(json, Course[].class);
     }
 
     private static Institutions[] parseInstitutions(String json) {
         Gson gson = new Gson();
-        Institutions[] institutions = gson.fromJson(json, Institutions[].class);
+        return gson.fromJson(json, Institutions[].class);
+    }
 
-        return institutions;
+    private static Departments[] parseDepartments(String json) {
+        Gson gson = new Gson();
+        return gson.fromJson(json, Departments[].class);
     }
 }
