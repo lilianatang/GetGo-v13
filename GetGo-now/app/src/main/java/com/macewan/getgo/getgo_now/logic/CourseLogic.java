@@ -175,8 +175,8 @@ public class CourseLogic {
             return null;
         }
         for (Course course: courseList) {
-            if (course.id.equals(id)) {
-                return course.name;
+            if (course.course_id.equals(id)) {
+                return course.course_name;
             }
         }
         return null;

@@ -23,9 +23,9 @@ public class JsonObject {
      */
     public ArrayList<String> getNames(){
         ArrayList<String> courseNames = new ArrayList<String>();
-        for(int i=0; i < this.courses.size(); i++){
-            courseNames.add(courses.get(i).name);
-        }
+       for(int i=0; i < this.courses.size(); i++){
+        courseNames.add(courses.get(i).course_name);
+       }
         return courseNames;
     }
 }

@@ -29,6 +29,7 @@ import com.macewan.getgo.getgo_now.app.AppConfig;
 import com.macewan.getgo.getgo_now.app.AppController;
 import com.macewan.getgo.getgo_now.helper.SQLiteHandler;
 import com.macewan.getgo.getgo_now.helper.SessionManager;
+import com.macewan.getgo.getgo_now.logic.MyDatabase;
 
 public class RegisterActivity extends Activity {
     private static final String TAG = RegisterActivity.class.getSimpleName();
@@ -39,8 +40,8 @@ public class RegisterActivity extends Activity {
     private EditText inputPassword;
     private ProgressDialog pDialog;
     private SessionManager session;
-    private SQLiteHandler db;
-
+    //private SQLiteHandler db;
+    private MyDatabase db;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +61,7 @@ public class RegisterActivity extends Activity {
         session = new SessionManager(getApplicationContext());
 
         // SQLite database handler
-        db = new SQLiteHandler(getApplicationContext());
+        db = new MyDatabase(getApplicationContext());
 
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
