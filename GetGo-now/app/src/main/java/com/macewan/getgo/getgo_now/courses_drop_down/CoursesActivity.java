@@ -83,7 +83,6 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
         });
 
         lv.setAdapter(adapter);
-
     }
 
         //update the dictionary

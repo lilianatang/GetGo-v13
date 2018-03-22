@@ -59,8 +59,10 @@ public class HomePage extends AppCompatActivity {
         lst3 = CourseObject.getCourses(null);
         Log.d("IN HOME!!", "onClick: " + lst3.toString());
 
-       // LogicObject ca;
-        //ca  = LogicDB.getInstance(this.getBaseContext());
+        LogicDB ca;
+        ca  = LogicDB.getInstance(this.getBaseContext());
+        String department2 = ca.logic_object.department;
+        Log.d("DEPARTMENT STRING!!!", "onCreate: " + department2);
 
       //  departments = ca.getDepartmentNames();
         //Fill Both RecyclerViews

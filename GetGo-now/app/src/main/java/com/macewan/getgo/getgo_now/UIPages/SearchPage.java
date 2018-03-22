@@ -99,7 +99,7 @@ public class SearchPage extends Activity{
 
     public void addContainer(String name){
         DegreeContainer temp = new DegreeContainer(name,null);
-        if(containerList.contains(temp)){
+        if(containerList.contains(temp.getTitle())){
             return;
         }
         else{

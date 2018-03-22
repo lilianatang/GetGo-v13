@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.content.Intent;
 import com.macewan.getgo.getgo_now.R;
-import java.util.*;
 
 /**
  * Created by Siham on 2018-03-19.
@@ -22,6 +21,7 @@ public class Results extends Activity {
 
         Intent intent = getIntent();
         String list = intent.getParcelableExtra("list");
-        //List<String> items = Arrays.asList(list.split("\\s*,\\s*"));
+
+
     }
 }
