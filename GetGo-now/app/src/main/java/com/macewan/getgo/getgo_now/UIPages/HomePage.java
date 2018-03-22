@@ -4,11 +4,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.*;
+import android.util.Log;
 import android.widget.*;
 
 import android.view.View;
 import android.content.*;
-import com.macewan.getgo.getgo_now.*;
+
 import com.macewan.getgo.getgo_now.Containers.*;
 import com.macewan.getgo.getgo_now.ObjectClass.*;
 
@@ -20,6 +21,8 @@ import java.util.*;
  * Created by Siham on 2018-03-19.
  */
 import com.macewan.getgo.getgo_now.R;
+import com.macewan.getgo.getgo_now.courses_drop_down.CourseObject;
+
 import android.view.View.OnClickListener;
 
 public class HomePage extends AppCompatActivity {
@@ -48,8 +51,11 @@ public class HomePage extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homelayout);
-
         s = Singleton.getInstance(this.getBaseContext());
+
+        HashMap<String, Integer> lst3;
+        lst3 = CourseObject.getCourses(null);
+        Log.d("IN HOME!!", "onClick: " + lst3.toString());
 
 
         //Fill Both RecyclerViews

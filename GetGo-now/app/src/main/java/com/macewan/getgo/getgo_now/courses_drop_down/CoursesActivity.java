@@ -1,8 +1,13 @@
 package com.macewan.getgo.getgo_now.courses_drop_down;
 import com.macewan.getgo.getgo_now.R;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.macewan.getgo.getgo_now.UIPages.HomePage;
+import com.macewan.getgo.getgo_now.UIPages.SearchPage;
+import com.macewan.getgo.getgo_now.courses_drop_down.CourseObject;
 import android.util.Log;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -38,7 +43,7 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
     public ArrayAdapter<String> adapter_classes;
     ArrayList<String> Classes;
     int positionDelete = -1;
-
+    HashMap<String, Integer>lst =  new HashMap<String, Integer>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //initializing the product list
@@ -82,7 +87,7 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
 
         //update the dictionary
     public HashMap after_add(String course, int mark){
-        HashMap<String, Integer>lst =  new HashMap<>();
+
         lst.put(course, mark);
         return lst;
     }
@@ -97,10 +102,11 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
         HashMap<String, Integer> courses_marks = new HashMap<>();
         String course_name = course_box.getText().toString();
         String course_mark = mark_box.getText().toString();
-        int marks = Integer.parseInt(mark_box.getText().toString());
+
         switch (v.getId()){
             //Add button clicked
             case R.id.add_button:
+                int marks = Integer.parseInt(mark_box.getText().toString());
                 if (course_mark.length() > 0 && course_mark.length() > 0) {
                     String join = course_name + "    " + course_mark + "%";
                     courses_marks = after_add(course_name, marks);
@@ -120,6 +126,14 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
 
             case R.id.submit_button:
 
+                HashMap<String, Integer> lst3;
+                lst3 = CourseObject.getCourses(lst);
+
+                Log.d("Send to Search", "onClick: " + lst3.toString());
+
+                Intent myIntent = new Intent(CoursesActivity.this, HomePage.class);
+                startActivityForResult(myIntent, 1);
+                break;
         }
     }
 }
