@@ -2,40 +2,35 @@ package com.macewan.getgo.getgo_now.logic;
 
 /**
  * Created by Michael Zhao on 3/1/2018.
- * Modified by Liliana Tang on March 17, 2018
  * Class for checking logic.
  */
 
-
-import com.google.gson.Gson;
+import android.content.Context;
 import com.macewan.getgo.getgo_now.courses_drop_down.Course;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.HashMap;
 import java.lang.String;
 import java.util.ArrayList;
 
 public class CourseLogic {
-    public ArrayList checkLogic (String institution, String department, ArrayList<String> studentCourses, ArrayList<String> studentMarks) {
+    public ArrayList checkLogic (String institution, String department, Context context, HashMap<String,Integer> student) {
+        LogicDB jsonData = LogicDB.getInstance(context);
+        GetDatabase db = new GetDatabase(jsonData.logic_object.conditions,jsonData.logic_object.condition_links,jsonData.logic_object.groups,jsonData.logic_object.courses,jsonData.logic_object.institution,jsonData.logic_object.department);
+
+        int average = 0;
         ArrayList<String> condId;
         ArrayList<ArrayList<String>> links = new ArrayList<>();
         ArrayList<ArrayList<String>> courses = new ArrayList<>();
         ArrayList<ArrayList<String>> courseNames = new ArrayList<>();
-        condId = getConditionId(institution, department);
-        if (condId == null) {
-            return null;
-        }
-
+        condId = getConditionId(institution,department,db.conditionsList);
         for (String id: condId) {
-            links.add(getLinks(id));
+            links.add(getLinks(id, db.conditionLinksList));
         }
 
         for (ArrayList list : links) {
             ArrayList<String> groupCourses = new ArrayList<>();
             for (Object group : list) {
-                groupCourses.addAll(getGroups(institution, group.toString()));
+                groupCourses.addAll(getGroups(institution, group.toString(), db.groupsList));
             }
             courses.add(groupCourses);
         }
@@ -44,60 +39,27 @@ public class CourseLogic {
         for (ArrayList list : courses) {
             ArrayList<String> names = new ArrayList<>();
             for (Object id : list) {
-                if (getCourses(id.toString()) != null) {
-                    names.add(getCourses(id.toString()));
+                if (getCourses(id.toString(), db.courseList) != null) {
+                    names.add(getCourses(id.toString(), db.courseList));
                 }
             }
             courseNames.add(names);
         }
-
-        //Hard coded example of a dictionary containing student courses and marks. This array has to be sorted when obtained from the database.
-        HashMap<String, Integer> student = new HashMap<>();
-        for (int i=0; i<studentCourses.size();i++) {
-            student.put(studentCourses.get(i), Integer.parseInt(studentMarks.get(i)));
+        for (Departments dept : db.departmentsList) {
+            if (dept.department_id.equals(department)) {
+                average = Integer.parseInt(dept.average_mark);
+            }
         }
+
 
         //Call to the checkCourse function, it will either return null which means the student meet the requirements, an arrayList containing all the
         //condition that they failed, or a arrayList containing an average which means they failed the average requirement.
-        ArrayList check = checkCourse(student, courseNames, 99);
+        ArrayList check = checkCourse(student, courseNames, average);
         return check;
     }
-    private static String readUrl(String urlString) throws Exception {
-        BufferedReader reader = null;
-        try {
-            URL url = new URL(urlString);
-            reader = new BufferedReader(new InputStreamReader(url.openStream()));
-            StringBuffer buffer = new StringBuffer();
-            int read;
-            char[] chars = new char[1024];
-            while ((read = reader.read(chars)) != -1) {
-                buffer.append(chars, 0, read);
-            }
-            return buffer.toString();
-        } finally {
-            if (reader != null){
-                reader.close();
-            }
-        }
-    }
 
-    private static Conditions[] parseCondition() throws Exception {
-        String json = readUrl("http://localhost:8080/backend_Getgo/get_conditions.php");
-        Gson gson = new Gson();
-        Conditions[] conditions = gson.fromJson(json, Conditions[].class);
 
-        return conditions;
-    }
-
-    private static ArrayList<String> getConditionId(String institution, String department) {
-        Conditions[] conditionList;
-        try {
-            conditionList = parseCondition();
-        }
-        catch (Exception e){
-            System.out.print("parseCondition failed");
-            return null;
-        }
+    private static ArrayList<String> getConditionId(String institution, String department,Conditions[] conditionList) {
         ArrayList<String> condId = new ArrayList<>();
         for (Conditions cond : conditionList){
             if (cond.institution_id.equals(institution) && cond.department_id.equals(department)){
@@ -106,23 +68,9 @@ public class CourseLogic {
         }
         return condId;
     }
-    private static ConditionLinks[] parseConditionLinks() throws Exception {
-        String json = readUrl("http://localhost:8080/backend_Getgo/get_condition_links.php");
-        Gson gson = new Gson();
-        ConditionLinks[] links = gson.fromJson(json, ConditionLinks[].class);
 
-        return links;
-    }
+    private static ArrayList<String> getLinks(String condId, ConditionLinks[] linkList) {
 
-    private static ArrayList<String> getLinks(String condId) {
-        ConditionLinks[] linkList;
-        try {
-            linkList = parseConditionLinks();
-        }
-        catch (Exception e) {
-            System.out.print("parseConditionLinks failed");
-            return null;
-        }
         ArrayList<String> condGroup = new ArrayList<>();
         for (ConditionLinks link : linkList){
             if (link.condition_id.equals(condId)) {
@@ -131,23 +79,8 @@ public class CourseLogic {
         }
         return condGroup;
     }
-    private static Groups[] parseGroups() throws Exception {
-        String json = readUrl("http://localhost:8080/backend_Getgo/get_groups.php");
-        Gson gson = new Gson();
-        Groups[] groups = gson.fromJson(json, Groups[].class);
 
-        return groups;
-    }
-
-    private static ArrayList<String> getGroups(String institution, String group) {
-        Groups[] groupList;
-        try {
-            groupList = parseGroups();
-        }
-        catch (Exception e){
-            System.out.print("parseGroups failed");
-            return null;
-        }
+    private static ArrayList<String> getGroups(String institution, String group, Groups[] groupList) {
         ArrayList<String> courses = new ArrayList<>();
         for (Groups groups : groupList) {
             if (groups.institution_id.equals(institution) && groups.group.equals(group)) {
@@ -157,23 +90,8 @@ public class CourseLogic {
         return courses;
     }
 
-    private static Course[] parseCourses() throws Exception {
-        String json = readUrl ("http://localhost:8080/backend_Getgo/get_all_courses2.php");
-        Gson gson = new Gson();
-        Course[] courses = gson.fromJson(json, Course[].class);
 
-        return courses;
-    }
-
-    private static String getCourses(String id) {
-        Course[] courseList;
-        try {
-            courseList = parseCourses();
-        }
-        catch (Exception e){
-            System.out.print("parseGroups failed");
-            return null;
-        }
+    private static String getCourses(String id, Course[] courseList) {
         for (Course course: courseList) {
             if (course.course_id.equals(id)) {
                 return course.course_name;
@@ -184,7 +102,7 @@ public class CourseLogic {
 
 
     public static ArrayList checkCourse (HashMap<String, Integer> student, ArrayList<ArrayList<String>> faculty, int average){
-        HashMap<String, Integer> thisStudent = new HashMap<>();
+        HashMap<String, Integer> thisStudent;
         ArrayList<Integer> courseMarks = new ArrayList<>();
         thisStudent = (HashMap<String, Integer>)student.clone();
         ArrayList<ArrayList<String>> failedConditions = new ArrayList<ArrayList<String>>();

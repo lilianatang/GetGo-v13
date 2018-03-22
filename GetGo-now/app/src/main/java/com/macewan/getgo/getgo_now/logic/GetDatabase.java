@@ -25,7 +25,7 @@ public class GetDatabase {
         institutionsList = parseInstitutions(institutionJson);
     }
 
-    private static String parseJson(String json, String key) {
+    public static String parseJson(String json, String key) {
         JSONObject jsonOb;
         try {
             jsonOb = new JSONObject(json);

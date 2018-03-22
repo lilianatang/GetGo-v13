@@ -5,20 +5,23 @@ package com.macewan.getgo.getgo_now.logic;
  */
 
 public class Institutions {
-    public String id;
-    public String name;
+    public String university_id;
+    public String school_name;
+    public String city;
+    public String province;
+    public String country;
 
 
     public Institutions(String id, String name) {
-        this.id = id;
-        this.name = name;
+        this.university_id = id;
+        this.school_name = name;
     }
 
     public String getId() {
-        return id;
+        return university_id;
     }
 
     public String getName() {
-        return name;
+        return school_name;
     }
 }
