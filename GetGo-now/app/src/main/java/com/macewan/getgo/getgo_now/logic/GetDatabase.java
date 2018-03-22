@@ -2,7 +2,7 @@ package com.macewan.getgo.getgo_now.logic;
 
 import com.google.gson.Gson;
 import com.macewan.getgo.getgo_now.courses_drop_down.Course;
-
+import java.util.ArrayList;
 import org.json.JSONObject;
 
 
@@ -68,5 +68,13 @@ public class GetDatabase {
     private static Departments[] parseDepartments(String json) {
         Gson gson = new Gson();
         return gson.fromJson(json, Departments[].class);
+    }
+
+    public ArrayList<String> getDepartmentNames() {
+        ArrayList<String> names = new ArrayList<>();
+        for (Departments dept: this.departmentsList) {
+            names.add(dept.department_name);
+        }
+        return names;
     }
 }
