@@ -56,7 +56,7 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
 
         //Load DB in LogicClass
         LogicDB caa = LogicDB.getInstance(this.getBaseContext());
-        //caa.logic_object.getDepartmentNames();
+        String department = caa.logic_object.department;
 
         autoCompleteTextView.setAdapter(adapter_classes);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, list);

@@ -23,4 +23,7 @@ public class AppConfig {
 
 	//Courses url
 	public static String URL_COURSE = "http://"+ localhost +"/android_login_api/get_all_courses.php";
+
+	//Courses url
+	public static String URL_INSTITUTION = "http://"+ localhost +"/android_login_api/get_institutions.php";
 }

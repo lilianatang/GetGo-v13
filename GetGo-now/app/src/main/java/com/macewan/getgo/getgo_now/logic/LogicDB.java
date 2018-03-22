@@ -11,8 +11,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.macewan.getgo.getgo_now.ObjectClass.Singleton;
 import com.macewan.getgo.getgo_now.app.AppConfig;
+import com.macewan.getgo.getgo_now.logic.GetDatabase;
 
 import org.json.JSONObject;
+
+import static com.macewan.getgo.getgo_now.logic.GetDatabase.parseJson;
 
 /**
  * Created by Siham on 2018-03-22.
@@ -31,6 +34,9 @@ public class LogicDB {
         getConditionLinks();
         getDepartment();
         getGroups();
+        getInstitution();
+        getCourse();
+
     }
 
     public static synchronized LogicDB getInstance(Context mCxt){
@@ -50,9 +56,9 @@ public class LogicDB {
                     public void onResponse(JSONObject response) {
                         Gson g = new GsonBuilder().setPrettyPrinting().create();
                         String string = response.toString();
-                        Log.d("Conditions", "string " + string);
-
-                        logic_object.conditions = string;
+                        String parsedstring = parseJson(string,"conditions");
+                        logic_object.conditions = parsedstring;
+                        Log.d("Conditions", "string " + parsedstring);
                     }
 
                 }, new Response.ErrorListener() {
@@ -76,14 +82,40 @@ public class LogicDB {
                     public void onResponse(JSONObject response) {
 
                         String string = response.toString();
-                        logic_object.condition_links = string;
-                        Log.d("Condition links", "string " + string);
+                        String parsedstring = parseJson(string,"condition_links");
+                        logic_object.condition_links = parsedstring;
+                        Log.d("Condition links", "string " + parsedstring);
 
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("Condition Links Error", "Cannot Make Request" + error );
+                    }
+                });
+
+        Singleton.addToRequestQueue(jsonObjectRequest);
+    }
+
+    // Makes a JsonObject and get request that is added to the que in singleton
+    // fills logic_object with ConditionLinks
+    public void getInstitution(){
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, AppConfig.URL_INSTITUTION, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        String string = response.toString();
+                        String parsedstring = parseJson(string,"institution");
+                        logic_object.institution = parsedstring;
+                        Log.d("Institution", "string " + parsedstring);
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Institution Error", "Cannot Make Request" + error );
                     }
                 });
 
@@ -100,8 +132,9 @@ public class LogicDB {
                     public void onResponse(JSONObject response) {
 
                         String string = response.toString();
-                        Log.d("Groups", "string " + string);
-                        logic_object.groups = string;
+                        String parsedstring = parseJson(string,"groups");
+                        logic_object.groups = parsedstring;
+                        Log.d("Groups", "string " + parsedstring);
 
                     }
                 }, new Response.ErrorListener() {
@@ -124,8 +157,9 @@ public class LogicDB {
                     public void onResponse(JSONObject response) {
 
                         String string = response.toString();
-                        Log.d("Department", "string " + string);
-                        logic_object.department = string;
+                        String parsedstring = parseJson(string,"department");
+                        logic_object.department = parsedstring;
+                        Log.d("Department", "string " + parsedstring);
 
                     }
                 }, new Response.ErrorListener() {
@@ -146,7 +180,9 @@ public class LogicDB {
                     public void onResponse(JSONObject response) {
                         String string = response.toString();
                         Log.d("Courses", "string " + string);
-                        logic_object.courses = string;
+                        String parsedstring = parseJson(string,"courses");
+                        logic_object.courses = parsedstring;
+                        Log.d("Courses", "string " + parsedstring);
 
                     }
                 }, new Response.ErrorListener() {
