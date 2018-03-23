@@ -1,6 +1,7 @@
 package com.macewan.getgo.getgo_now.logic;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.macewan.getgo.getgo_now.courses_drop_down.Course;
@@ -106,8 +107,10 @@ public class GetDatabase {
         for (String fac : facultyList) {
             for(Departments dept: departmentsList) {
                 if (dept.department_name.equals(fac)) {
+
                     ArrayList result = logic.checkLogic(dept.university_id,dept.department_id,context,student);
                     LogicResults logicResults = new LogicResults(getUniversityName(dept.university_id),fac, result);
+                    Log.d("Results: ", "getResultbyFaculty: " + result.toString());
                     results.add(logicResults);
                 }
             }

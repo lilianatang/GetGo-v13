@@ -110,7 +110,7 @@ public class SearchPage extends Activity{
 
         ArrayList<LogicResults> list = db.getResultbyFaculty(this.getBaseContext(), names, marks);
 
-        Log.d("Logic Results!!!!", "sendToLogic: " + list.get(0).results);
+        Log.d("Logic Results!!!!", "sendToLogic: " + list.get(0).faculty_name);
     }
 
     public void onClick(View v) {

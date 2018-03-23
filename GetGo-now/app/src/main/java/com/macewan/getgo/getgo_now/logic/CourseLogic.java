@@ -6,6 +6,7 @@ package com.macewan.getgo.getgo_now.logic;
  */
 
 import android.content.Context;
+import android.util.Log;
 
 import com.macewan.getgo.getgo_now.courses_drop_down.Course;
 
@@ -51,7 +52,7 @@ public class CourseLogic {
                 average = Integer.parseInt(dept.average_mark);
             }
         }
-
+        Log.d("courses", "checkLogic: "+courseNames.toString());
 
         //Call to the checkCourse function, it will either return null which means the student meet the requirements, an arrayList containing all the
         //condition that they failed, or a arrayList containing an average which means they failed the average requirement.
