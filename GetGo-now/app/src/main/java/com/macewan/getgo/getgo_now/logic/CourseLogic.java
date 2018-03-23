@@ -6,6 +6,7 @@ package com.macewan.getgo.getgo_now.logic;
  */
 
 import android.content.Context;
+
 import com.macewan.getgo.getgo_now.courses_drop_down.Course;
 
 import java.util.HashMap;
@@ -102,6 +103,7 @@ public class CourseLogic {
 
 
     public static ArrayList checkCourse (HashMap<String, Integer> student, ArrayList<ArrayList<String>> faculty, int average){
+        ArrayList result = new ArrayList();
         HashMap<String, Integer> thisStudent;
         ArrayList<Integer> courseMarks = new ArrayList<>();
         thisStudent = (HashMap<String, Integer>)student.clone();
@@ -120,15 +122,21 @@ public class CourseLogic {
                 failedConditions.add(courseList);
             }
         }
-        if (!failedConditions.isEmpty()){
-            return failedConditions;
+        if (!failedConditions.isEmpty()) {
+            result.add(failedConditions);
+            result.add(false);
+            return result;
         }
         if(calculateAverage(courseMarks) >= average){
-            return null;
+            result.add(null);
+            result.add(true);
+            return result;
         }
-        ArrayList<Integer> requiredAverage = new ArrayList<>();
-        requiredAverage.add(average);
-        return requiredAverage;
+        //ArrayList<Integer> requiredAverage = new ArrayList<>();
+        //requiredAverage.add(average);
+        result.add(null);
+        result.add(false);
+        return result;
     }
 
     private static double calculateAverage(ArrayList<Integer> marks){
