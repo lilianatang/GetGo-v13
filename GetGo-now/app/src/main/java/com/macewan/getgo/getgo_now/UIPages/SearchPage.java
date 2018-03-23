@@ -93,9 +93,9 @@ public class SearchPage extends Activity{
 
         enter.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                sendToLogic();
+
                 Intent intent = new Intent(SearchPage.this, Results.class);
-                intent.putExtra("list", names.toString());
+                intent.putExtra("string", names);
                 startActivity(intent);
             }
         });

@@ -1,13 +1,16 @@
 package com.macewan.getgo.getgo_now.Containers;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.macewan.getgo.getgo_now.ObjectClass.Results;
 import com.macewan.getgo.getgo_now.R;
+import com.macewan.getgo.getgo_now.logic.LogicResults;
 
 import java.util.List;
 
@@ -19,38 +22,61 @@ import java.util.List;
  *  needs editing
  */
 
-public abstract class LogicAdapter extends RecyclerView.Adapter<ContainerAdapter.ProductViewHolder>{
+public class LogicAdapter extends RecyclerView.Adapter<LogicAdapter.ProductViewHolder> {
 
     private Context context;
     private ContainerAdapter.OnItemClickListener listener;
-    private List<Results> containerResults;
+    private List<LogicResults> containerResults;
 
-    public LogicAdapter(Context context,List<Results> containerResults) {
+    public LogicAdapter(Context context,List<LogicResults> containerResults) {
         this.containerResults = containerResults;
         this.context = context;
     }
 
-    public interface OnItemClickListener{
-        void onItemClick(View item);
-    }
-
     @Override
-    public ContainerAdapter.ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        ContainerAdapter.ProductViewHolder holder;
-        View view = inflater.inflate(R.layout.logic_container, null);
-        holder = null;//this.ProductViewHolder(view);
+        ProductViewHolder holder;
+
+            View view = inflater.inflate(R.layout.logic_container, null);
+            holder = new ProductViewHolder(view);
 
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(ContainerAdapter.ProductViewHolder holder, int position) {
-        Results container = containerResults.get(position);
+    public void onBindViewHolder(LogicAdapter.ProductViewHolder holder, final int position) {
+        LogicResults container = containerResults.get(position);
+        holder.textViewFaculty.setText(container.getFaculty_name());
+        holder.textViewInstitution.setText(container.getUniversity_name());
+        holder.textViewLogic.setText(container.getResults());
+//        holder.linearLayout2.setOnClickListener(new View.OnClickListener(){
+          ///  @Override
+       ///     public void onClick(View view){
+     //           Toast.makeText(context,"" + containerResults.get(position).faculty_name, Toast.LENGTH_LONG).show();
+   //         }
+  //      });
+
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return containerResults.size();
+    }
+
+
+    public class ProductViewHolder extends RecyclerView.ViewHolder {
+        TextView textViewInstitution, textViewFaculty, textViewLogic;
+        RelativeLayout linearLayout, linearLayout2;
+
+        @SuppressLint("WrongViewCast")
+        public ProductViewHolder(final View itemView) {
+            super(itemView);
+
+                textViewInstitution = itemView.findViewById(R.id.institution);
+                textViewFaculty = itemView.findViewById(R.id.faculty);
+                textViewLogic = itemView.findViewById(R.id.condition1);
+                linearLayout2 = (RelativeLayout) itemView.findViewById(R.id.relativeLayout);
+        }
     }
 }

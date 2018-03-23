@@ -103,7 +103,7 @@ public class ContainerAdapter extends RecyclerView.Adapter<ContainerAdapter.Prod
             super(itemView);
 
             if(containerDegreeList != null) {
-                textViewTitle = itemView.findViewById(R.id.title);
+                textViewTitle = itemView.findViewById(R.id.institution);
                 textViewDescription = itemView.findViewById(R.id.description);
                 linearLayout2 = (RelativeLayout) itemView.findViewById(R.id.linearLayout2);
             }
