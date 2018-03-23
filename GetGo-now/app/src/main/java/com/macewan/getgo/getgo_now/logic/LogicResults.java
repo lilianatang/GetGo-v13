@@ -24,10 +24,12 @@ public class LogicResults {
         int i;
         int count = 1;
         ArrayList res = (ArrayList) results.get(0);
+        if (res !=null){
         for(i = 0; i < res.size(); i++){
             String temp = "Missing Condition " + count + ": "+res.get(i).toString();
             set = set + temp +"\n" ;
             count++;
+        }
         }
         if(results.get(1).equals(false)){
             set = set + "Didn't Meet the Average Mark Required";
