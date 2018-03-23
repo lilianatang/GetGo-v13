@@ -85,6 +85,7 @@ public class SearchPage extends Activity{
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                     addContainer(autoCompleteTextView.getText().toString());
+                    
                     return true;
                 }
                 return false;
