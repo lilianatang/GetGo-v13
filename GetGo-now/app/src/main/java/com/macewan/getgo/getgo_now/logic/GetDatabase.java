@@ -90,7 +90,7 @@ public class GetDatabase {
         }
         return names;
     }
-    
+
     public String getUniversityName(String Uid) {
         for (Institutions uni : institutionsList) {
             if (uni.university_id.equals(Uid)) {

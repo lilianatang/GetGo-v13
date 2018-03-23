@@ -25,6 +25,9 @@ import java.util.HashMap;
 import java.util.List;
 import com.macewan.getgo.getgo_now.ObjectClass.Student;
 import com.macewan.getgo.getgo_now.courses_drop_down.CourseObject;
+import com.macewan.getgo.getgo_now.logic.GetDatabase;
+import com.macewan.getgo.getgo_now.logic.LogicDB;
+import com.macewan.getgo.getgo_now.logic.LogicResults;
 
 /**
  * Created by Siham on 2018-03-16.
@@ -43,6 +46,8 @@ public class SearchPage extends Activity{
     ContainerAdapter adapter;
     Button enter;
     ArrayList<String> names = new ArrayList<>();
+    LogicDB jsonData;
+    GetDatabase db;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +76,10 @@ public class SearchPage extends Activity{
         adapter_degrees.addAll(student.getDepartmentNames());
         autoCompleteTextView.setAdapter(adapter_degrees);
 
+        jsonData  = LogicDB.getInstance(this.getBaseContext());
+        db = new GetDatabase(jsonData.logic_object.conditions,jsonData.logic_object.condition_links,jsonData.logic_object.groups,jsonData.logic_object.courses,jsonData.logic_object.institution,jsonData.logic_object.department);
+
+
         //When enter button is clicked, create a container
         autoCompleteTextView.setOnKeyListener(new OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -98,6 +107,10 @@ public class SearchPage extends Activity{
         marks = CourseObject.getCourses(null);
         Log.d("Marks", "sendToLogic: " + marks);
         this.getBaseContext();
+
+        ArrayList<LogicResults> list = db.getResultbyFaculty(this.getBaseContext(), names, marks);
+
+        Log.d("Logic Results!!!!", "sendToLogic: " + list.get(0).results);
     }
 
     public void onClick(View v) {

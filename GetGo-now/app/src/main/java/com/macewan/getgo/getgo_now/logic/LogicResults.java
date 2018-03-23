@@ -7,9 +7,9 @@ import java.util.ArrayList;
  */
 
 public class LogicResults {
-    String university_name;
-    String faculty_name;
-    ArrayList results;
+    public String university_name;
+    public String faculty_name;
+    public ArrayList results;
 
     public LogicResults(String uni, String fac, ArrayList res) {
         university_name = uni;
