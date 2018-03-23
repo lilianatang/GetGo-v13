@@ -39,15 +39,15 @@ public class HomePage extends AppCompatActivity {
     public List<DegreeContainer> containerList;
     public List<InstitutionContainer> schoolContainer;
 
-    public List schools = Arrays.asList("University of Alberta",
+    public List schools;/* = Arrays.asList("University of Alberta",
             "Macewan University",
             "Kings University",
-            "Concordia");
+            "Concordia");*/
 
-    List departments = Arrays.asList("University of Alberta",
+    List departments; /*= Arrays.asList("University of Alberta",
             "Macewan University",
             "Kings University",
-            "Concordia");
+            "Concordia");*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +67,8 @@ public class HomePage extends AppCompatActivity {
         Log.d("DEPARTMENT STRING!!!", "onCreate: " + department2);
 
         GetDatabase db = new GetDatabase(jsonData.logic_object.conditions,jsonData.logic_object.condition_links,jsonData.logic_object.groups,jsonData.logic_object.courses,jsonData.logic_object.institution,jsonData.logic_object.department);
-
-
+        departments = db.getDepartmentNames();
+        schools = db.getInstitutionNames();
         //  departments = ca.getDepartmentNames();
         //Fill Both RecyclerViews
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);

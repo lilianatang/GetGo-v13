@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -20,8 +21,11 @@ import android.view.*;
 //import com.example.getgo.uidesign.Singlet;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import com.macewan.getgo.getgo_now.ObjectClass.Student;
+import com.macewan.getgo.getgo_now.courses_drop_down.CourseObject;
+
 /**
  * Created by Siham on 2018-03-16.
  */
@@ -38,7 +42,7 @@ public class SearchPage extends Activity{
     public List<DegreeContainer> containerList = new ArrayList<DegreeContainer>();
     ContainerAdapter adapter;
     Button enter;
-    List <String> names = new ArrayList<>();
+    ArrayList<String> names = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,8 +74,7 @@ public class SearchPage extends Activity{
         //When enter button is clicked, create a container
         autoCompleteTextView.setOnKeyListener(new OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-
+                if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                     addContainer(autoCompleteTextView.getText().toString());
                     return true;
                 }
@@ -81,11 +84,20 @@ public class SearchPage extends Activity{
 
         enter.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                sendToLogic();
                 Intent intent = new Intent(SearchPage.this, Results.class);
                 intent.putExtra("list", names.toString());
                 startActivity(intent);
             }
         });
+    }
+
+    private void sendToLogic() {
+        Log.d("ArrayList", "sendToLogic: " + names);
+        HashMap<String, Integer> marks;
+        marks = CourseObject.getCourses(null);
+        Log.d("Marks", "sendToLogic: " + marks);
+        this.getBaseContext();
     }
 
     public void onClick(View v) {

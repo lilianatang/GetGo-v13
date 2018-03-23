@@ -77,4 +77,12 @@ public class GetDatabase {
         }
         return names;
     }
+
+    public ArrayList<String> getInstitutionNames() {
+        ArrayList<String> names = new ArrayList<>();
+        for (Institutions dept: this.institutionsList) {
+            names.add(dept.school_name);
+        }
+        return names;
+    }
 }

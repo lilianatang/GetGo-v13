@@ -20,8 +20,6 @@ public class Results extends Activity {
         s = Singleton.getInstance(this.getBaseContext());
 
         Intent intent = getIntent();
-        String list = intent.getParcelableExtra("list");
-
-
+//        String list = intent.getParcelableExtra("list");
     }
 }
