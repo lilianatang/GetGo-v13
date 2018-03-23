@@ -1,8 +1,13 @@
 package com.macewan.getgo.getgo_now.logic;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.macewan.getgo.getgo_now.courses_drop_down.Course;
+import com.macewan.getgo.getgo_now.logic.CourseLogic;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.json.JSONObject;
 
 
@@ -76,5 +81,29 @@ public class GetDatabase {
             names.add(dept.department_name);
         }
         return names;
+    }
+
+    public String getUniversityName(String Uid) {
+        for (Institutions uni : institutionsList) {
+            if (uni.university_id.equals(Uid)) {
+                return uni.school_name;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<LogicResults> getResultbyFaculty(Context context, ArrayList<String> facultyList, HashMap<String,Integer> student) {
+        ArrayList<LogicResults> results = new ArrayList<>();
+        CourseLogic logic = new CourseLogic();
+        for (String fac : facultyList) {
+            for(Departments dept: departmentsList) {
+                if (dept.department_name.equals(fac)) {
+                    ArrayList result = logic.checkLogic(dept.university_id,dept.department_id,context,student);
+                    LogicResults logicResults = new LogicResults(getUniversityName(dept.university_id),fac, result);
+                    results.add(logicResults);
+                }
+            }
+        }
+        return results;
     }
 }
