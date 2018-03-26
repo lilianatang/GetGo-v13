@@ -6,6 +6,8 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.macewan.getgo.getgo_now.courses_drop_down.Course;
 import com.macewan.getgo.getgo_now.logic.CourseLogic;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -92,7 +94,7 @@ public class GetDatabase {
         return names;
     }
 
-    public String getUniversityName(String Uid) {
+    private String getUniversityName(String Uid) {
         for (Institutions uni : institutionsList) {
             if (uni.university_id.equals(Uid)) {
                 return uni.school_name;
@@ -100,6 +102,7 @@ public class GetDatabase {
         }
         return null;
     }
+
 
     public ArrayList<LogicResults> getResultbyFaculty(Context context, ArrayList<String> facultyList, HashMap<String,Integer> student) {
         ArrayList<LogicResults> results = new ArrayList<>();
@@ -117,5 +120,44 @@ public class GetDatabase {
         }
         return results;
 
+    }
+
+    public ArrayList<LogicResults> getResultbySchool(Context context, ArrayList<String> schools, HashMap<String,Integer> student) {
+        ArrayList<LogicResults> results = new ArrayList<>();
+        CourseLogic logic = new CourseLogic();
+        for (String school : schools) {
+            String schoolID = new String();
+            for (Institutions institution : institutionsList) {
+                if (institution.school_name.equals(school)) {
+                    schoolID = institution.university_id;
+                }
+            }
+            for (Departments dept: departmentsList) {
+                if (dept.university_id.equals(schoolID)) {
+                    ArrayList result = logic.checkLogic(schoolID,dept.department_id,context,student);
+                    LogicResults logicResults = new LogicResults(school, dept.department_name, result);
+                    results.add(logicResults);
+                }
+            }
+        }
+        return results;
+    }
+
+    public LogicResults getResultbyBoth(Context context, String school, String faculty, HashMap<String,Integer> student) {
+        CourseLogic logic = new CourseLogic();
+        String schoolID = new String();
+        for (Institutions institutions : institutionsList) {
+            if (institutions.school_name.equals(school)) {
+                schoolID = institutions.university_id;
+            }
+        }
+        for (Departments dept: departmentsList) {
+            if (dept.university_id.equals(schoolID) && dept.department_name.equals(faculty)) {
+                ArrayList result = logic.checkLogic(schoolID, dept.department_id,context,student);
+                LogicResults results = new LogicResults(school, faculty, result);
+                return results;
+            }
+        }
+        return null;
     }
 }
