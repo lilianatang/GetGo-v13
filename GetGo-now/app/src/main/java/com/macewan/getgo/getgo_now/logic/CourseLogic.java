@@ -10,12 +10,24 @@ import android.util.Log;
 
 import com.macewan.getgo.getgo_now.courses_drop_down.Course;
 
+
+import java.util.Comparator;
+import java.util.Map;
 import java.util.HashMap;
 import java.lang.String;
 import java.util.ArrayList;
+import java.util.Collections;
+
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+
+
 
 public class CourseLogic {
     public ArrayList checkLogic (String institution, String department, Context context, HashMap<String,Integer> student) {
+        Map<String, Integer> sortedStudent = sortByValues(student);
         LogicDB jsonData = LogicDB.getInstance(context);
         GetDatabase db = new GetDatabase(jsonData.logic_object.conditions,jsonData.logic_object.condition_links,jsonData.logic_object.groups,jsonData.logic_object.courses,jsonData.logic_object.institution,jsonData.logic_object.department);
 
@@ -56,8 +68,28 @@ public class CourseLogic {
 
         //Call to the checkCourse function, it will either return null which means the student meet the requirements, an arrayList containing all the
         //condition that they failed, or a arrayList containing an average which means they failed the average requirement.
-        ArrayList check = checkCourse(student, courseNames, average);
+        ArrayList check = checkCourse(sortedStudent, courseNames, average);
         return check;
+    }
+
+    private static HashMap sortByValues(HashMap map) {
+        List list = new LinkedList(map.entrySet());
+        // Defined Custom Comparator here
+        Collections.sort(list, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                return ((Comparable) ((Map.Entry) (o1)).getValue())
+                        .compareTo(((Map.Entry) (o2)).getValue());
+            }
+        });
+
+        // Here I am copying the sorted list in HashMap
+        // using LinkedHashMap to preserve the insertion order
+        HashMap sortedHashMap = new LinkedHashMap();
+        for (Iterator it = list.iterator(); it.hasNext();) {
+            Map.Entry entry = (Map.Entry) it.next();
+            sortedHashMap.put(entry.getKey(), entry.getValue());
+        }
+        return sortedHashMap;
     }
 
 
@@ -103,11 +135,11 @@ public class CourseLogic {
     }
 
 
-    public static ArrayList checkCourse (HashMap<String, Integer> student, ArrayList<ArrayList<String>> faculty, int average){
+    public static ArrayList checkCourse (Map<String, Integer> student, ArrayList<ArrayList<String>> faculty, int average){
         ArrayList result = new ArrayList();
-        HashMap<String, Integer> thisStudent;
+        Map<String, Integer> thisStudent;
         ArrayList<Integer> courseMarks = new ArrayList<>();
-        thisStudent = (HashMap<String, Integer>)student.clone();
+        thisStudent = student;
         ArrayList<ArrayList<String>> failedConditions = new ArrayList<ArrayList<String>>();
         for (ArrayList courseList : faculty) {
             boolean found = false;
