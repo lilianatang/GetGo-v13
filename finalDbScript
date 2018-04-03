@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 18, 2018 at 06:09 PM
+-- Generation Time: Apr 03, 2018 at 02:22 AM
 -- Server version: 5.6.38
 -- PHP Version: 7.1.12
 
@@ -11,16 +11,16 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 --
--- Database: `getGo`
+-- Database: `getgo`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `condition`
+-- Table structure for table `conditions`
 --
 
-CREATE TABLE `condition` (
+CREATE TABLE `conditions` (
   `id` int(21) NOT NULL,
   `institution_id` int(21) NOT NULL,
   `department_id` int(21) NOT NULL,
@@ -28,10 +28,10 @@ CREATE TABLE `condition` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `condition`
+-- Dumping data for table `conditions`
 --
 
-INSERT INTO `condition` (`id`, `institution_id`, `department_id`, `min_mark`) VALUES
+INSERT INTO `conditions` (`id`, `institution_id`, `department_id`, `min_mark`) VALUES
 (1, 1, 1, 50),
 (2, 1, 1, 50),
 (3, 1, 1, 50),
@@ -137,8 +137,8 @@ INSERT INTO `condition` (`id`, `institution_id`, `department_id`, `min_mark`) VA
 --
 
 CREATE TABLE `course` (
-  `id` int(21) NOT NULL,
-  `name` varchar(100) DEFAULT NULL,
+  `course_id` int(21) NOT NULL,
+  `course_name` varchar(100) DEFAULT NULL,
   `credits` varchar(10) DEFAULT NULL,
   `description` varchar(200) DEFAULT '"None"'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -147,7 +147,7 @@ CREATE TABLE `course` (
 -- Dumping data for table `course`
 --
 
-INSERT INTO `course` (`id`, `name`, `credits`, `description`) VALUES
+INSERT INTO `course` (`course_id`, `course_name`, `credits`, `description`) VALUES
 (1, 'English Language Arts 30-1', '5', ''),
 (2, 'Mathematics 30-1', '5', ''),
 (3, 'Biology 30', '5', ''),
@@ -308,9 +308,9 @@ INSERT INTO `course` (`id`, `name`, `credits`, `description`) VALUES
 --
 
 CREATE TABLE `department` (
-  `id` int(21) NOT NULL,
-  `institution_id` int(21) DEFAULT NULL,
-  `name` varchar(100) DEFAULT NULL,
+  `department_id` int(21) NOT NULL,
+  `university_id` int(21) DEFAULT NULL,
+  `department_name` varchar(100) DEFAULT NULL,
   `average_mark` int(3) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -319,7 +319,7 @@ CREATE TABLE `department` (
 -- Dumping data for table `department`
 --
 
-INSERT INTO `department` (`id`, `institution_id`, `name`, `average_mark`, `description`) VALUES
+INSERT INTO `department` (`department_id`, `university_id`, `department_name`, `average_mark`, `description`) VALUES
 (1, 1, 'Faculty of Science', 70, ''),
 (2, 1, 'Faculty of Arts', 70, ''),
 (3, 1, 'Faculty of Engineering', 70, ''),
@@ -354,20 +354,20 @@ INSERT INTO `department` (`id`, `institution_id`, `name`, `average_mark`, `descr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `group`
+-- Table structure for table `groups`
 --
 
-CREATE TABLE `group` (
+CREATE TABLE `groups` (
   `course_id` int(21) DEFAULT NULL,
   `institution_id` int(21) DEFAULT NULL,
   `group` varchar(24) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `group`
+-- Dumping data for table `groups`
 --
 
-INSERT INTO `group` (`course_id`, `institution_id`, `group`) VALUES
+INSERT INTO `groups` (`course_id`, `institution_id`, `group`) VALUES
 (1, 1, 'E'),
 (2, 1, 'F'),
 (3, 1, 'G'),
@@ -737,25 +737,25 @@ INSERT INTO `group` (`course_id`, `institution_id`, `group`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `institution`
+-- Table structure for table `institutions`
 --
 
-CREATE TABLE `institution` (
-  `id` int(21) NOT NULL,
-  `name` varchar(100) DEFAULT NULL,
+CREATE TABLE `institutions` (
+  `university_id` int(21) NOT NULL,
+  `school_name` varchar(100) DEFAULT NULL,
   `city` varchar(40) DEFAULT NULL,
   `province` varchar(10) DEFAULT NULL,
   `country` varchar(80) DEFAULT NULL,
-  `pc_zip` varchar(10) DEFAULT NULL,
+  `postal_code` varchar(10) DEFAULT NULL,
   `type` varchar(10) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `institution`
+-- Dumping data for table `institutions`
 --
 
-INSERT INTO `institution` (`id`, `name`, `city`, `province`, `country`, `pc_zip`, `type`, `description`) VALUES
+INSERT INTO `institutions` (`university_id`, `school_name`, `city`, `province`, `country`, `postal_code`, `type`, `description`) VALUES
 (1, 'University of Alberta', 'Edmonton', 'AB', 'Canada', 'T6G 2R3', 'University', ''),
 (2, 'Macewan University ', 'Edmonton', 'AB', 'Canada', 'T5J 4S2', 'University', ''),
 (3, 'Kings University', 'Edmonton', 'AB', 'Canada', 'T6B 2H3', 'University', ''),
@@ -973,9 +973,9 @@ INSERT INTO `linked_condition` (`id`, `condition_id`, `condition_group`) VALUES
 --
 
 CREATE TABLE `major` (
-  `id` int(21) NOT NULL,
+  `major_id` int(21) NOT NULL,
   `department_id` int(21) DEFAULT NULL,
-  `institution_id` int(21) DEFAULT NULL,
+  `university_id` int(21) DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -984,7 +984,7 @@ CREATE TABLE `major` (
 -- Dumping data for table `major`
 --
 
-INSERT INTO `major` (`id`, `department_id`, `institution_id`, `name`, `description`) VALUES
+INSERT INTO `major` (`major_id`, `department_id`, `university_id`, `name`, `description`) VALUES
 (1, 1, 1, 'Applied Mathematics', ''),
 (2, 1, 1, 'Astrophysics', ''),
 (3, 1, 1, 'Atmospheric Science', ''),
@@ -1023,22 +1023,20 @@ INSERT INTO `major` (`id`, `department_id`, `institution_id`, `name`, `descripti
 --
 
 CREATE TABLE `profile` (
-  `id` int(21) NOT NULL,
-  `first_name` varchar(40) DEFAULT NULL,
-  `last_name` varchar(40) DEFAULT NULL,
-  `email` varchar(80) DEFAULT NULL,
-  `city` varchar(40) DEFAULT NULL,
-  `province` varchar(10) DEFAULT NULL,
-  `country` varchar(10) DEFAULT NULL,
-  `pc_zip` varchar(10) DEFAULT NULL,
-  `international` int(1) DEFAULT NULL,
-  `password` varchar(40) DEFAULT NULL,
-  `highest_education` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` int(11) NOT NULL,
+  `student_id` varchar(23) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `province` varchar(50) NOT NULL,
+  `postal_code` varchar(50) NOT NULL,
+  `encrypted_password` varchar(80) NOT NULL,
+  `salt` varchar(10) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `profile`
---
 -- --------------------------------------------------------
 
 --
@@ -1046,167 +1044,53 @@ CREATE TABLE `profile` (
 --
 
 CREATE TABLE `profile_marks` (
-  `student_id` int(21) DEFAULT NULL,
+  `unique_id` varchar(100) DEFAULT NULL,
   `course_id` int(21) DEFAULT NULL,
   `mark` int(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `profile_marks`
+-- Table structure for table `users`
 --
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `unique_id` varchar(100) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `encrypted_password` varchar(80) NOT NULL,
+  `salt` varchar(10) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `condition`
+-- Indexes for table `conditions`
 --
-ALTER TABLE `condition`
+ALTER TABLE `conditions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `institution_id` (`institution_id`),
   ADD KEY `department_id` (`department_id`);
 
 --
--- Indexes for table `course`
+-- Indexes for table `users`
 --
-ALTER TABLE `course`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `department`
---
-ALTER TABLE `department`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `institution_id` (`institution_id`);
-
---
--- Indexes for table `group`
---
-ALTER TABLE `group`
-  ADD KEY `course_id` (`course_id`),
-  ADD KEY `institution_id` (`institution_id`);
-
---
--- Indexes for table `institution`
---
-ALTER TABLE `institution`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `linked_condition`
---
-ALTER TABLE `linked_condition`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `condition_id` (`condition_id`);
-
---
--- Indexes for table `major`
---
-ALTER TABLE `major`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `department_id` (`department_id`),
-  ADD KEY `institution_id` (`institution_id`);
-
---
--- Indexes for table `profile`
---
-ALTER TABLE `profile`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `profile_marks`
---
-ALTER TABLE `profile_marks`
-  ADD KEY `student_id` (`student_id`),
-  ADD KEY `course_id` (`course_id`);
+  ADD UNIQUE KEY `unique_id` (`unique_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `condition`
+-- AUTO_INCREMENT for table `users`
 --
-ALTER TABLE `condition`
-  MODIFY `id` int(21) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
-
---
--- AUTO_INCREMENT for table `course`
---
-ALTER TABLE `course`
-  MODIFY `id` int(21) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
-
---
--- AUTO_INCREMENT for table `department`
---
-ALTER TABLE `department`
-  MODIFY `id` int(21) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
-
---
--- AUTO_INCREMENT for table `institution`
---
-ALTER TABLE `institution`
-  MODIFY `id` int(21) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `linked_condition`
---
-ALTER TABLE `linked_condition`
-  MODIFY `id` int(21) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
-
---
--- AUTO_INCREMENT for table `major`
---
-ALTER TABLE `major`
-  MODIFY `id` int(21) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
---
--- AUTO_INCREMENT for table `profile`
---
-ALTER TABLE `profile`
-  MODIFY `id` int(21) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `condition`
---
-ALTER TABLE `condition`
-  ADD CONSTRAINT `condition_ibfk_1` FOREIGN KEY (`institution_id`) REFERENCES `institution` (`id`),
-  ADD CONSTRAINT `condition_ibfk_2` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`);
-
---
--- Constraints for table `department`
---
-ALTER TABLE `department`
-  ADD CONSTRAINT `department_ibfk_1` FOREIGN KEY (`institution_id`) REFERENCES `institution` (`id`);
-
---
--- Constraints for table `group`
---
-ALTER TABLE `group`
-  ADD CONSTRAINT `group_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`),
-  ADD CONSTRAINT `group_ibfk_2` FOREIGN KEY (`institution_id`) REFERENCES `institution` (`id`);
-
---
--- Constraints for table `linked_condition`
---
-ALTER TABLE `linked_condition`
-  ADD CONSTRAINT `linked_condition_ibfk_1` FOREIGN KEY (`condition_id`) REFERENCES `condition` (`id`);
-
---
--- Constraints for table `major`
---
-ALTER TABLE `major`
-  ADD CONSTRAINT `major_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`),
-  ADD CONSTRAINT `major_ibfk_2` FOREIGN KEY (`institution_id`) REFERENCES `institution` (`id`);
-
---
--- Constraints for table `profile_marks`
---
-ALTER TABLE `profile_marks`
-  ADD CONSTRAINT `profile_marks_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `profile` (`id`),
-  ADD CONSTRAINT `profile_marks_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `group` (`course_id`);
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
