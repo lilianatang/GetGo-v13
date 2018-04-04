@@ -38,6 +38,7 @@ public class CourseLogic {
         }
 
 
+        Log.d("courses", db.courseList.toString());
         for (ArrayList list : courses) {
             ArrayList<String> names = new ArrayList<>();
             for (Object id : list) {

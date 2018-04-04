@@ -28,7 +28,11 @@ public class GetDatabase {
         conditionsList = parseCondition(conditionJson);
         conditionLinksList = parseConditionLinks(linksJson);
         groupsList = parseGroups(groupsJson);
+        Log.d("courseJson",courseJson);
         courseList = parseCourses(courseJson);
+        for (Course course:courseList) {
+            Log.d("course",course.course_name);
+        }
         institutionsList = parseInstitutions(institutionJson);
         departmentsList = parseDepartments(departmentJson);
     }
@@ -41,7 +45,7 @@ public class GetDatabase {
             return value;
         }
         catch (Exception e){
-            System.out.print("parseJson error");
+            Log.d("parseJson error",e.toString());
             return null;
         }
     }
@@ -107,7 +111,6 @@ public class GetDatabase {
         for (String fac : facultyList) {
             for(Departments dept: departmentsList) {
                 if (dept.department_name.equals(fac)) {
-
                     ArrayList result = logic.checkLogic(dept.university_id,dept.department_id,context,student);
                     LogicResults logicResults = new LogicResults(getUniversityName(dept.university_id),fac, result);
                     Log.d("Results: ", "getResultbyFaculty: " + result.toString());

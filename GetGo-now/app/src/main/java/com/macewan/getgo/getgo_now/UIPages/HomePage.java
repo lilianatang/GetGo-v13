@@ -58,7 +58,7 @@ public class HomePage extends AppCompatActivity {
 
         HashMap<String, Integer> lst3;
         lst3 = CourseObject.getCourses(null);
-        Log.d("IN HOME!!", "onClick: " + lst3.toString());
+  //      Log.d("IN HOME!!", "onClick: " + lst3.toString());
 
         LogicDB jsonData;
 
