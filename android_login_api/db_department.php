@@ -1,4 +1,3 @@
-
 <?php
 // Used to display message that user has been created.
 session_start();
@@ -21,7 +20,7 @@ class Get_All_Department
     // Author: Liliana Quyen Tang
     function __construct()
     {
-        require_once 'include/db_connect.php';
+        require_once '../php_scripts/db_connect.php';
 
         $db = new DB_Connect();
         $this->connection = $db->connect();
@@ -47,8 +46,8 @@ class Get_All_Department
         if (mysqli_num_rows($result) > 0) {
     // looping through all results
     // products node
-            $response["department"] = array();
     
+            $response["department"] = array();
         while ($row = mysqli_fetch_array($result)) {
         // temp user array
             $course = array();

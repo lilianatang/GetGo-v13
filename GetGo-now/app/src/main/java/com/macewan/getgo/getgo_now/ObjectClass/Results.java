@@ -31,7 +31,8 @@ public class Results extends Activity {
     LogicDB jsonData;
     GetDatabase db;
     public List<LogicContainer> containerList = new ArrayList<LogicContainer>();
-    ArrayList<String> names;
+    ArrayList<String> degree_names;
+    ArrayList<String> school_names;
     LogicAdapter adapter;
     RecyclerView recyclerView;
 
@@ -41,25 +42,41 @@ public class Results extends Activity {
         setContentView(R.layout.display_logic);
         s = Singleton.getInstance(this.getBaseContext());
 
+        //Get Database Class Reference
         jsonData  = LogicDB.getInstance(this.getBaseContext());
         db = new GetDatabase(jsonData.logic_object.conditions,jsonData.logic_object.condition_links,jsonData.logic_object.groups,jsonData.logic_object.courses,jsonData.logic_object.institution,jsonData.logic_object.department);
 
-//get recyclerView reference
+        //get recyclerView reference
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         Intent intent = getIntent();
         Bundle bundle = getIntent().getExtras();
-        names = bundle.getStringArrayList("string");
+        degree_names = bundle.getStringArrayList("degree_string");
+        school_names = bundle.getStringArrayList("school_string");
 
-        Log.d("ArrayList", "sendToLogic: " + names);
+        Log.d("degreeString", "sendToLogic: " + degree_names);
+        Log.d("schoolString","sendToLogic"  + school_names);
         HashMap<String, Integer> marks;
         marks = CourseObject.getCourses(null);
         Log.d("Marks", "sendToLogic: " + marks);
         this.getBaseContext();
+        ArrayList<LogicResults> list = new ArrayList<LogicResults>();
 
-        ArrayList<LogicResults> list = db.getResultbyFaculty(this.getBaseContext(), names, marks);
+        //Check the strings depending on which one is selected.
+        if(degree_names.size() == 0 && school_names.size() == 0) {
+            Log.d("Nothing to Display", "Empty Strings");
+        }
+        else if(degree_names.size() != 0 && school_names.size() != 0){
+            list = db.getResultbyBoth(this.getBaseContext(), school_names, degree_names, marks);
+        }
+        else if(school_names.size() != 0){
+            list = db.getResultbySchool(this.getBaseContext(), school_names, marks);
+        }
+        else if(degree_names.size() != 0){
+            list = db.getResultbyFaculty(this.getBaseContext(), degree_names, marks);
+        }
 
         adapter = new LogicAdapter(this.getBaseContext(), list);
         recyclerView.setAdapter(adapter);

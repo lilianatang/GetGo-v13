@@ -75,8 +75,6 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
         LogicDB caa = LogicDB.getInstance(this.getBaseContext());
         String department = caa.logic_object.department;
 
-
-
         autoCompleteTextView.setAdapter(adapter_classes);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, list);
 
@@ -127,9 +125,9 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
             case R.id.add_button:
                 // have to make sure this one is an integer (what happens if user enters a string in mark box => it scratches on me - Liliana)
                 int marks = Integer.parseInt(mark_box.getText().toString());
-                if (course_mark.length() > 0 && course_mark.length() > 0) {
+                if (course_name.length() > 0 && course_mark.length() > 0) {
                     String join = course_name + "    " + course_mark + "%";
-                    courses_marks = after_add(course_name, marks);
+                    //courses_marks = after_add(course_name, marks);
                     adapter.add(join);
                     mark_box.setText("");
                     course_box.setText("");

@@ -1,5 +1,7 @@
 package com.macewan.getgo.getgo_now.ObjectClass;
 
+import com.macewan.getgo.getgo_now.logic.Institutions;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,6 +14,7 @@ public class Student {
     public HashMap<String,ArrayList<String>> Departments;
 
     public ArrayList <Departments>department;
+    public ArrayList <Institutions>institution;
 
     private Student student;
 
@@ -21,5 +24,13 @@ public class Student {
             depList.add(this.department.get(i).department_name);
         }
         return depList;
+    }
+
+    public ArrayList<String> getInstitutionNames(){
+        ArrayList<String> schoolList = new ArrayList<>();
+        for(int i = 0; i < this.institution.size(); i++){
+            schoolList.add(this.institution.get(i).school_name);
+        }
+        return schoolList;
     }
 }

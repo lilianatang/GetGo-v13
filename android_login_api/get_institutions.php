@@ -11,58 +11,63 @@ $_SESSION['message']="";
  * NOTE: THE CONNECTION TO db_connect.php is hardcoded based on Joe;s filepath, need to make it
  * generalized for all users...
 */
-class Get_All_Courses 
+class Get_All_Institutions
 {
     private $connection;
     // the construction is to initiate the connection in Create_User class
-    // Author: Liliana Quyen Tang
     function __construct()
     {
-        require_once 'include/db_connect.php';
+        require_once '../android_login_api/include/DB_Connect.php';
         $db = new DB_Connect();
         $this->connection = $db->connect();
     }
-   
-    function get_courses()
+    /* creates a user from the data entered into the form
+    * Usage: $user->create_user();
+    * Return: None
+    */
+    function get_institutions()
     {
 /*
  * Following code will list all the products
  */
     // array for JSON response
         $response = array();
-        $query = "SELECT * from course"; 
+        $query = "SELECT * from institutions"; 
     // get all products from products table
         $result = mysqli_query($this->connection, $query) or die(mysqli_error($this->connection));
 // check for empty result
         if (mysqli_num_rows($result) > 0) {
     // looping through all results
     // products node
-            $response["courses"] = array();
-    
+            $response= array();
+            $response["institution"] = array();
         while ($row = mysqli_fetch_array($result)) {
         // temp user array
-            $course = array();
+            $institution = array();
             
-            $course["course_id"] = $row["course_id"];
-            $course["course_name"] = $row["course_name"];
-            $course["credits"] = $row["credits"];
-            $course["decription"] = $row["decription"];
+            $institution["university_id"] = $row["university_id"];
+            $institution["school_name"] = $row["school_name"];
+            $institution["city"] = $row["city"];
+            $institution["province"] = $row["province"];
+            $institution["country"] = $row["country"];
+            $institution["postal_code"] = $row["postal_code"];
+            $institution["type"] = $row["type"];
         // push single product into final response array
-            array_push($response["courses"], $course);
+        array_push($response["institution"], $institution);
         }
     // success
-        $response["success"] = 1;
+        //$response["success"] = 1;
     // echoing JSON response
         echo json_encode($response);
         } else {
     // no products found
         $response["success"] = 0;
-        $response["message"] = "No courses found";
+        $response["message"] = "No condtions found";
     // echo no users JSON
     echo json_encode($response);
 }
 }
 }
-$courses = new Get_All_Courses();
-$courses->get_courses();
+$condtions = new Get_All_Institutions();
+$condtions->get_institutions();
 ?>
