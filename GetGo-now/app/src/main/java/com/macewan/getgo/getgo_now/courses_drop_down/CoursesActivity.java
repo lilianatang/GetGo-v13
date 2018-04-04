@@ -9,6 +9,8 @@ import com.macewan.getgo.getgo_now.UIPages.HomePage;
 import com.macewan.getgo.getgo_now.logic.LogicDB;
 import com.macewan.getgo.getgo_now.logic.LogicObject;
 
+import android.widget.AutoCompleteTextView.Validator;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -43,6 +45,21 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
     ArrayList<String> Classes;
     int positionDelete = -1;
     HashMap<String, Integer>lst =  new HashMap<String, Integer>();
+    public void check_marks_validility(EditText mark_box){
+        String marks = mark_box.getText().toString();
+        // make sure the mark box is not empty
+        if (TextUtils.isEmpty(marks)){
+            mark_box.setError("This field cannot be empty");
+            return;
+        }
+
+        //
+        else if (TextUtils.isDigitsOnly(marks)){
+            mark_box.setError("This field only accepts a numeric value as input");
+            return;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //initializing the product list
@@ -106,6 +123,7 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
         switch (v.getId()){
             //Add button clicked
             case R.id.add_button:
+                // have to make sure this one is an integer (what happens if user enters a string in mark box => it scratches on me - Liliana)
                 int marks = Integer.parseInt(mark_box.getText().toString());
                 if (course_name.length() > 0 && course_mark.length() > 0) {
                     String join = course_name + "    " + course_mark + "%";

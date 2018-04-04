@@ -180,7 +180,7 @@ public class LogicDB {
                     public void onResponse(JSONObject response) {
                         String string = response.toString();
                         Log.d("Courses", "string " + string);
-                        String parsedstring = parseJson(string,"courses");
+                        String parsedstring = parseJson(string,"course");
                         logic_object.courses = parsedstring;
                         Log.d("Courses", "string " + parsedstring);
 
