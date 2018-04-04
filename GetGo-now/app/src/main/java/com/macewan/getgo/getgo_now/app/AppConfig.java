@@ -2,7 +2,7 @@ package com.macewan.getgo.getgo_now.app;
 
 public class AppConfig {
 	// Server user login url
-	public static String localhost  = "142.244.175.37:8888";
+	public static String localhost  = "10.60.8.118:8888";
   
 	public static String URL_LOGIN = "http://"+ localhost +"/android_login_api/login.php";
 
