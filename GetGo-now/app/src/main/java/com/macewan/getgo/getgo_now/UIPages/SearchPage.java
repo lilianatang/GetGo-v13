@@ -48,9 +48,11 @@ public class SearchPage extends Activity{
     public List<DegreeContainer> containerList = new ArrayList<DegreeContainer>();
     ContainerAdapter adapter;
     Button enter;
-    ArrayList<String> names = new ArrayList<>();
+    ArrayList<String> degree_names = new ArrayList<>();
+    ArrayList<String> school_names = new ArrayList<>();
     LogicDB jsonData;
     GetDatabase db;
+    String what = "degree";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,7 +97,8 @@ public class SearchPage extends Activity{
         enter.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent intent = new Intent(SearchPage.this, Results.class);
-                intent.putExtra("string", names);
+                intent.putExtra("degree_string", degree_names);
+                intent.putExtra("school_string", school_names);
                 startActivity(intent);
             }
         });
@@ -103,6 +106,7 @@ public class SearchPage extends Activity{
         //When school is clicked, refill dropdown
         school.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                what = "school";
                 if(adapter_list != null)
                     adapter_list.clear();
                 adapter_list.addAll(db.getInstitutionNames());
@@ -110,9 +114,10 @@ public class SearchPage extends Activity{
             }
         });
 
-        //When degree is clicked go to new page
+        //When degree is clicked, refill dropdown with degree
         degree.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                what = "degree";
                 if(adapter_list != null)
                     adapter_list.clear();
                 adapter_list.addAll(db.getDepartmentNames());
@@ -123,13 +128,13 @@ public class SearchPage extends Activity{
 
     /*
     private void sendToLogic() {
-        Log.d("ArrayList", "sendToLogic: " + names);
+        Log.d("ArrayList", "sendToLogic: " + degree_names);
         HashMap<String, Integer> marks;
         marks = CourseObject.getCourses(null);
         Log.d("Marks", "sendToLogic: " + marks);
         this.getBaseContext();
 
-        ArrayList<LogicResults> list = db.getResultbyFaculty(this.getBaseContext(), names, marks);
+        ArrayList<LogicResults> list = db.getResultbyFaculty(this.getBaseContext(), degree_names, marks);
 
         Log.d("Logic Results!!!!", "sendToLogic: " + list.get(0).faculty_name);
     }*/
@@ -152,11 +157,20 @@ public class SearchPage extends Activity{
             return;
         }
         else{
-            names.add(name);
-            containerList.add(temp);
-            adapter = new ContainerAdapter(this, containerList, null);
-            recyclerView.setAdapter(adapter);
-            autoCompleteTextView.setText("");
+            if(what == "degree"){
+                degree_names.add(name);
+                containerList.add(temp);
+                adapter = new ContainerAdapter(this, containerList, null);
+                recyclerView.setAdapter(adapter);
+                autoCompleteTextView.setText("");
+            }
+            else if(what == "school"){
+                school_names.add(name);
+                containerList.add(temp);
+                adapter = new ContainerAdapter(this, containerList, null);
+                recyclerView.setAdapter(adapter);
+                autoCompleteTextView.setText("");
+            }
         }
     }
 }
