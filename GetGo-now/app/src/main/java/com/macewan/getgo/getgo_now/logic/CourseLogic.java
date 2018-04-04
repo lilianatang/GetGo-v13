@@ -92,7 +92,6 @@ public class CourseLogic {
         return sortedHashMap;
     }
 
-
     private static ArrayList<String> getConditionId(String institution, String department,Conditions[] conditionList) {
         ArrayList<String> condId = new ArrayList<>();
         for (Conditions cond : conditionList){
