@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.graphics.Color;
 
 import com.macewan.getgo.getgo_now.Containers.ContainerAdapter;
 import com.macewan.getgo.getgo_now.Containers.DegreeContainer;
@@ -107,6 +108,7 @@ public class SearchPage extends Activity{
         school.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 what = "school";
+                school.setBackgroundColor(Color.parseColor("#fc39eb"));
                 if(adapter_list != null)
                     adapter_list.clear();
                 adapter_list.addAll(db.getInstitutionNames());

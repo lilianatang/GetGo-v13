@@ -61,7 +61,6 @@ public class LoginActivity extends Activity {
 
         // Session manager
         session = new SessionManager(getApplicationContext());
-
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
@@ -164,7 +163,6 @@ public class LoginActivity extends Activity {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
-
             }
         }, new Response.ErrorListener() {
 
