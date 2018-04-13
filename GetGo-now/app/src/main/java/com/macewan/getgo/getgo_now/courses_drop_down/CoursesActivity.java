@@ -8,9 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import com.macewan.getgo.getgo_now.UIPages.HomePage;
 import com.macewan.getgo.getgo_now.logic.LogicDB;
 import com.macewan.getgo.getgo_now.logic.LogicObject;
+<<<<<<< HEAD
+import java.lang.reflect.Array;
+=======
 
 import android.widget.AutoCompleteTextView.Validator;
 import android.text.TextUtils;
+>>>>>>> 8d72fb95f130796f761d3a7b85bc68860567dd63
 import android.util.Log;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -110,7 +114,10 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
     }
 
     public HashMap after_delete(String course, HashMap dict){
-        dict.remove(course);
+        course.trim();
+        Log.d("Send to Search", "deleting: |" + course.trim() + "|");
+        dict.remove(course.trim());
+        Log.d("Send to Search", "New after removed: " + dict);
         return dict;
     }
 
@@ -127,7 +134,7 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
                 int marks = Integer.parseInt(mark_box.getText().toString());
                 if (course_name.length() > 0 && course_mark.length() > 0) {
                     String join = course_name + "    " + course_mark + "%";
-                    //courses_marks = after_add(course_name, marks);
+                    courses_marks = after_add(course_name, marks);
                     adapter.add(join);
                     mark_box.setText("");
                     course_box.setText("");
@@ -137,7 +144,17 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
                 //Delete button clicked, call remove
             case R.id.delete:
                 if(positionDelete >=0){
+                    String line = list.get(positionDelete);
+                    Log.d("Send to Search", "line to split: " + line);
+                    String[] l = line.split(" ");
+                    String n = "";
+                    for(int i = 0; i < l.length-2; i++){
+                        n = n + " "+ l[i];
+                    }
+                    Log.d("Send to Search", "New Line: " + n);
                     list.remove(positionDelete);
+                    Log.d("Send to Search", "Removing: " + n);
+                    after_delete(n, lst);
                     adapter.notifyDataSetChanged();
                 }
                 break;
@@ -146,6 +163,7 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
 
                 HashMap<String, Integer> lst3;
                 lst3 = CourseObject.getCourses(lst);
+                //lst3 = CourseObject.update(lst);
 
                 Log.d("Send to Search", "onClick: " + lst3.toString());
 

@@ -60,6 +60,9 @@ public class Results extends Activity {
         Log.d("schoolString","sendToLogic"  + school_names);
         HashMap<String, Integer> marks;
         marks = CourseObject.getCourses(null);
+        HashMap<String, Integer> lst3;
+        lst3 = CourseObject.getCourses(null);
+        Log.d("Mark!!", "onClick: " + lst3.toString());
         Log.d("Marks", "sendToLogic: " + marks);
         this.getBaseContext();
         ArrayList<LogicResults> list = new ArrayList<LogicResults>();
