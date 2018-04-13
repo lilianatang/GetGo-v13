@@ -27,11 +27,10 @@ import java.util.List;
 
 public class NewSearch  extends Activity{
 
-    private AutoCompleteTextView autoCompleteTextView;
+        private AutoCompleteTextView autoCompleteTextViewD;
+        private AutoCompleteTextView autoCompleteTextViewS;
         public ArrayAdapter<String> adapter_list;
-        Button degree;
-        Button school;
-        Button city;
+        Button add;
         RecyclerView recyclerView;
         public List<DegreeContainer> containerList = new ArrayList<DegreeContainer>();
         ContainerAdapter adapter;
@@ -46,40 +45,40 @@ public class NewSearch  extends Activity{
         public void onCreate(Bundle savedInstanceState) {
 
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.searchlayout);
+            setContentView(R.layout.newsearch);
 
             //button initialize
-            degree = findViewById(R.id.degree_button);
-            school = findViewById(R.id.institution_button);
-            city = findViewById(R.id.city_button);
+            add = findViewById(R.id.add);
             enter = findViewById(R.id.explore);
 
             //get recyclerView reference
             recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
+            autoCompleteTextViewD = findViewById(R.id.degreeTextView);
+            autoCompleteTextViewS = findViewById(R.id.schoolTextView);
 
             //Retrieve data from singleton to db
             jsonData  = LogicDB.getInstance(this.getBaseContext());
             db = new GetDatabase(jsonData.logic_object.conditions,jsonData.logic_object.condition_links,jsonData.logic_object.groups,jsonData.logic_object.courses,jsonData.logic_object.institution,jsonData.logic_object.department);
             db.getInstitutionNames();
 
-            //When enter button is clicked, create a container and add to list
-            autoCompleteTextView.setOnKeyListener(new View.OnKeyListener() {
-                public boolean onKey(View v, int keyCode, KeyEvent event) {
-                    if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                        addContainer(autoCompleteTextView.getText().toString());
-                        return true;
-                    }
-                    return false;
+            add.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    addContainer(autoCompleteTextViewS.getText().toString(),autoCompleteTextViewD.getText().toString());
+
                 }
             });
 
             //Fill dropDown: Default is Degree list
             adapter_list = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item);
             adapter_list.addAll(db.getDepartmentNames());
-            autoCompleteTextView.setAdapter(adapter_list);
+            autoCompleteTextViewD.setAdapter(adapter_list);
+
+            //Fill dropDown: Default is Degree list
+            adapter_list = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item);
+            adapter_list.addAll(db.getInstitutionNames());
+            autoCompleteTextViewS.setAdapter(adapter_list);
 
             //When enter is clicked, go to new page
             enter.setOnClickListener(new View.OnClickListener() {
@@ -91,27 +90,6 @@ public class NewSearch  extends Activity{
                 }
             });
 
-            //When school is clicked, refill dropdown
-            school.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    what = "school";
-                    if(adapter_list != null)
-                        adapter_list.clear();
-                    adapter_list.addAll(db.getInstitutionNames());
-                    autoCompleteTextView.setAdapter(adapter_list);
-                }
-            });
-
-            //When degree is clicked, refill dropdown with degree
-            degree.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    what = "degree";
-                    if(adapter_list != null)
-                        adapter_list.clear();
-                    adapter_list.addAll(db.getDepartmentNames());
-                    autoCompleteTextView.setAdapter(adapter_list);
-                }
-            });
         }
 
     /*
@@ -139,25 +117,25 @@ public class NewSearch  extends Activity{
     }*/
 
         //When Called, fills container With name of Selected items
-        public void addContainer(String name){
-            DegreeContainer temp = new DegreeContainer(name,null);
+        public void addContainer(String school, String degree){
+            DegreeContainer temp = new DegreeContainer(degree,null);
             if(containerList.contains(temp.getTitle())){
                 return;
             }
             else{
                 if(what == "degree"){
-                    degree_names.add(name);
+                    degree_names.add(degree);
                     containerList.add(temp);
                     adapter = new ContainerAdapter(this, containerList, null);
                     recyclerView.setAdapter(adapter);
-                    autoCompleteTextView.setText("");
+                    autoCompleteTextViewD.setText("");
                 }
                 else if(what == "school"){
-                    school_names.add(name);
+                    school_names.add(degree);
                     containerList.add(temp);
                     adapter = new ContainerAdapter(this, containerList, null);
                     recyclerView.setAdapter(adapter);
-                    autoCompleteTextView.setText("");
+                    autoCompleteTextViewD.setText("");
                 }
             }
         }

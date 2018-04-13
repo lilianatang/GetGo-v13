@@ -56,7 +56,6 @@ public class LogicAdapter extends RecyclerView.Adapter<LogicAdapter.ProductViewH
      //           Toast.makeText(context,"" + containerResults.get(position).faculty_name, Toast.LENGTH_LONG).show();
    //         }
   //      });
-
     }
 
     @Override
