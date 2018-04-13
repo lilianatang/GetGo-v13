@@ -2,28 +2,34 @@ package com.macewan.getgo.getgo_now.app;
 
 public class AppConfig {
 	// Server user login url
+<<<<<<< HEAD
 	public static String localhost  = "10.60.61.61:8888";
+=======
+
+	public static String localhost  = "10.60.61.61:8888";
+
+>>>>>>> 8d72fb95f130796f761d3a7b85bc68860567dd63
   
-	public static String URL_LOGIN = "http://"+ localhost +"/android_login_api/login.php";
+	public static String URL_LOGIN = "http://"+ localhost  + "/android_login_api/login.php";
 
 	// Server user register url
-	public static String URL_REGISTER = "http://"+ localhost +"/android_login_api/register.php";
+	public static String URL_REGISTER = "http://"+ localhost + "/android_login_api/register.php";
 
 	// Department url
-	public static String URL_DEPARTMENT = "http://"+ localhost +"/android_login_api/db_department.php";
+	public static String URL_DEPARTMENT = "http://"+ localhost  + "/android_login_api/db_department.php";
 
 	// Conditions url
-	public static String URL_CONDITION = "http://"+ localhost +"/android_login_api/get_conditions.php";
+	public static String URL_CONDITION = "http://"+ localhost + "/android_login_api/get_conditions.php";
 
 	// Condition Links url
-	public static String URL_CONDITION_LINK = "http://"+ localhost +"/android_login_api/get_condition_links.php";
+	public static String URL_CONDITION_LINK = "http://"+ localhost + "/android_login_api/get_condition_links.php";
 
 	//Groups url
-	public static String URL_GROUP = "http://"+ localhost +"/android_login_api/get_groups.php";
+	public static String URL_GROUP = "http://"+ localhost + "/android_login_api/get_groups.php";
 
 	//Courses url
-	public static String URL_COURSE = "http://"+ localhost +"/android_login_api/get_all_courses.php";
+	public static String URL_COURSE = "http://"+ localhost + "/android_login_api/get_all_courses.php";
 
 	//Courses url
-	public static String URL_INSTITUTION = "http://"+ localhost +"/android_login_api/get_institutions.php";
+	public static String URL_INSTITUTION = "http://"+ localhost + "/android_login_api/get_institutions.php";
 }

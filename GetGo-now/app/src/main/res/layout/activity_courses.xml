@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="@drawable/background_image"
     tools:context="com.macewan.getgo.getgo_now.courses_drop_down.CoursesActivity"
     tools:layout_editor_absoluteY="81dp">
 

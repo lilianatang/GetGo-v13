@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_image"
 
     tools:context="com.macewan.getgo.getgo_now.activity.MainActivity"
     tools:layout_editor_absoluteY="25dp">
@@ -28,13 +29,13 @@
                 android:id="@+id/textView"
                 android:layout_width="121dp"
                 android:layout_height="110dp"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
                 android:fontFamily="serif"
                 android:text="TextView"
                 android:textSize="18sp"
-                tools:layout_editor_absoluteX="112dp"
-                tools:layout_editor_absoluteY="22dp" />
+                tools:layout_editor_absoluteX="207dp"
+                tools:layout_editor_absoluteY="16dp" />
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>

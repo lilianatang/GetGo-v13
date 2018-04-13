@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_image"
     tools:context="com.macewan.getgo.getgo_now.activity.MainActivity"
     tools:layout_editor_absoluteY="25dp">
 
@@ -103,4 +104,9 @@
         app:layout_constraintTop_toBottomOf="@+id/explore"
         tools:ignore="UnknownId" />
 
+<<<<<<< HEAD
     </android.support.constraint.ConstraintLayout>
+=======
+
+</android.support.constraint.ConstraintLayout>
+>>>>>>> 8d72fb95f130796f761d3a7b85bc68860567dd63
