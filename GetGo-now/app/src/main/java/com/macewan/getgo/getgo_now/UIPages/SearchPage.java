@@ -96,9 +96,9 @@ public class SearchPage extends Activity{
         //When enter is clicked, go to new page
         enter.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent(SearchPage.this, Results.class);
-                intent.putExtra("degree_string", degree_names);
-                intent.putExtra("school_string", school_names);
+                Intent intent = new Intent(SearchPage.this, ResultPage.class);
+                intent.putStringArrayListExtra("degree_string", degree_names);
+                intent.putStringArrayListExtra("school_string", school_names);
                 startActivity(intent);
             }
         });
