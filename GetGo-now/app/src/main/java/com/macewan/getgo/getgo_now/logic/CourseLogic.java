@@ -49,8 +49,6 @@ public class CourseLogic {
             courses.add(groupCourses);
         }
 
-
-        Log.d("courses", db.courseList.toString());
         for (ArrayList list : courses) {
             ArrayList<String> names = new ArrayList<>();
             for (Object id : list) {
@@ -65,6 +63,12 @@ public class CourseLogic {
                 average = Integer.parseInt(dept.average_mark);
             }
         }
+        Collections.sort(courseNames, new Comparator<ArrayList>(){
+           public int compare(ArrayList a1, ArrayList a2) {
+               return a1.size() - a2.size();
+           }
+        });
+
         Log.d("courses", "checkLogic: "+courseNames.toString());
 
         //Call to the checkCourse function, it will either return null which means the student meet the requirements, an arrayList containing all the
