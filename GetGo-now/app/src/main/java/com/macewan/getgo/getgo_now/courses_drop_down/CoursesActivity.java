@@ -8,13 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import com.macewan.getgo.getgo_now.UIPages.HomePage;
 import com.macewan.getgo.getgo_now.logic.LogicDB;
 import com.macewan.getgo.getgo_now.logic.LogicObject;
-<<<<<<< HEAD
 import java.lang.reflect.Array;
-=======
 
 import android.widget.AutoCompleteTextView.Validator;
 import android.text.TextUtils;
->>>>>>> 8d72fb95f130796f761d3a7b85bc68860567dd63
 import android.util.Log;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;

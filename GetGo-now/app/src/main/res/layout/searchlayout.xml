@@ -104,9 +104,5 @@
         app:layout_constraintTop_toBottomOf="@+id/explore"
         tools:ignore="UnknownId" />
 
-<<<<<<< HEAD
     </android.support.constraint.ConstraintLayout>
-=======
 
-</android.support.constraint.ConstraintLayout>
->>>>>>> 8d72fb95f130796f761d3a7b85bc68860567dd63
