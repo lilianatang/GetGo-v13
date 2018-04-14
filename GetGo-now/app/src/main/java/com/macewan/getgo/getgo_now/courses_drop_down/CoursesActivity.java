@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.macewan.getgo.getgo_now.UIPages.HomePage;
+import com.macewan.getgo.getgo_now.UIPages.*;
 import com.macewan.getgo.getgo_now.logic.LogicDB;
 import com.macewan.getgo.getgo_now.logic.LogicObject;
 
@@ -149,7 +149,7 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
 
                 Log.d("Send to Search", "onClick: " + lst3.toString());
 
-                Intent myIntent = new Intent(CoursesActivity.this, HomePage.class);
+                Intent myIntent = new Intent(CoursesActivity.this, SearchPage.class);
                 startActivityForResult(myIntent, 1);
                 break;
         }
