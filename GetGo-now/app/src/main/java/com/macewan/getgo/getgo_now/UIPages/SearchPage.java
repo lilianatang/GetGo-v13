@@ -1,33 +1,27 @@
 package com.macewan.getgo.getgo_now.UIPages;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
 import com.macewan.getgo.getgo_now.Containers.ContainerAdapter;
 import com.macewan.getgo.getgo_now.Containers.DegreeContainer;
-import com.macewan.getgo.getgo_now.ObjectClass.Results;
-import com.macewan.getgo.getgo_now.ObjectClass.Singleton;
-import com.macewan.getgo.getgo_now.ObjectClass.Student;
 import com.macewan.getgo.getgo_now.R;
-import android.view.View.*;
-import android.view.*;
-//import com.example.getgo.uidesign.Singlet;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import com.macewan.getgo.getgo_now.ObjectClass.Student;
-import com.macewan.getgo.getgo_now.courses_drop_down.CourseObject;
 import com.macewan.getgo.getgo_now.logic.GetDatabase;
 import com.macewan.getgo.getgo_now.logic.LogicDB;
-import com.macewan.getgo.getgo_now.logic.LogicResults;
+
+import java.util.ArrayList;
+import java.util.List;
+
+//import com.example.getgo.uidesign.Singlet;
 
 /**
  * Created by Siham on 2018-03-16.

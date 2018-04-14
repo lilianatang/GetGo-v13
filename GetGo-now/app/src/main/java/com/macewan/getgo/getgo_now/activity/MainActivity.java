@@ -1,78 +1,98 @@
 package com.macewan.getgo.getgo_now.activity;
 
-import android.app.Activity;
+import com.macewan.getgo.getgo_now.UIPages.ResultPage;
+import com.macewan.getgo.getgo_now.UIPages.SearchPage;
+import com.macewan.getgo.getgo_now.adapter.*;
+import com.macewan.getgo.getgo_now.courses_drop_down.CoursesActivity;
+import com.macewan.getgo.getgo_now.helper.*;
+import com.macewan.getgo.getgo_now.fragments.*;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
-import java.util.HashMap;
-
+import android.view.Menu;
+import android.view.MenuItem;
 import com.macewan.getgo.getgo_now.R;
-import com.macewan.getgo.getgo_now.helper.SQLiteHandler;
-import com.macewan.getgo.getgo_now.helper.SessionManager;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
+	private static final String TAG = "MainActivity";
 
-	private TextView txtName;
-	private TextView txtEmail;
-	private Button btnLogout;
+	private SectionsPageAdapter mSectionsPageAdapter;
 
-	private SQLiteHandler db;
-	private SessionManager session;
+	private ViewPager mViewPager;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		txtName = (TextView) findViewById(R.id.name);
-		txtEmail = (TextView) findViewById(R.id.email);
-		btnLogout = (Button) findViewById(R.id.btnLogout);
+		mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 
-		// SqLite database handler
-		db = new SQLiteHandler(getApplicationContext());
+		// Set up the ViewPager with the sections adapter.
+		mViewPager = (ViewPager) findViewById(R.id.container);
+		setupViewPager(mViewPager);
 
-		// session manager
-		session = new SessionManager(getApplicationContext());
+		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+		tabLayout.setupWithViewPager(mViewPager);
 
-		if (!session.isLoggedIn()) {
-			logoutUser();
-		}
 
-		// Fetching user details from SQLite
-		HashMap<String, String> user = db.getUserDetails();
+		tabLayout.getTabAt(0).setIcon(R.drawable.ic_assignment);
+		tabLayout.getTabAt(1).setIcon(R.drawable.ic_autorenew);
+		tabLayout.getTabAt(2).setIcon(R.drawable.ic_attach_file);
 
-		String name = user.get("name");
-		String email = user.get("email");
+		BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+		BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+		Menu menu = bottomNavigationView.getMenu();
+		MenuItem menuItem = menu.getItem(0);
+		menuItem.setChecked(true);
 
-		// Displaying the user details on the screen
-		txtName.setText(name);
-		txtEmail.setText(email);
-
-		// Logout button click event
-		btnLogout.setOnClickListener(new View.OnClickListener() {
-
+		bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 			@Override
-			public void onClick(View v) {
-				logoutUser();
+			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+				switch (item.getItemId()){
+					case R.id.ic_arrow:
+
+						break;
+
+					case R.id.ic_android:
+						Intent intent1 = new Intent(MainActivity.this, CoursesActivity.class);
+						startActivity(intent1);
+						break;
+
+					case R.id.ic_books:
+						Intent intent2 = new Intent(MainActivity.this, SearchPage.class);
+						startActivity(intent2);
+						break;
+
+					case R.id.ic_center_focus:
+						Intent intent3 = new Intent(MainActivity.this, ResultPage.class);
+						startActivity(intent3);
+						break;
+
+					case R.id.ic_backup:
+						Intent intent4 = new Intent(MainActivity.this, LoginActivity.class);
+						startActivity(intent4);
+						break;
+				}
+
+
+				return false;
 			}
 		});
+
 	}
 
-	/**
-	 * Logging out the user. Will set isLoggedIn flag to false in shared
-	 * preferences Clears the user data from sqlite users table
-	 * */
-	private void logoutUser() {
-		session.setLogin(false);
-
-		db.deleteUsers();
-
-		// Launching the login activity
-		Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-		startActivity(intent);
-		finish();
+	private void setupViewPager(ViewPager viewPager) {
+		SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
+		adapter.addFragment(new Tab1Fragment());
+		adapter.addFragment(new Tab2Fragment());
+		adapter.addFragment(new Tab3Fragment());
+		viewPager.setAdapter(adapter);
 	}
+
 }
