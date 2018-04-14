@@ -20,5 +20,7 @@
     <color name="institution">#E0F2E9</color>
     <color name="faculty">#E0F2E9</color>
     <color name="condition1">#E0F2E9</color>
+    <color name="colorWhite">#fff</color>
+    <color name="colorGrey">#c3c3c3 </color>
 
 </resources>

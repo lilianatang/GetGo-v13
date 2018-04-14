@@ -3,9 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GetGo-now.iml" filepath="$PROJECT_DIR$/GetGo-now.iml" />
-      <module fileurl="file://C:\wamp64\www\GetGo-v13\GetGo-v13\GetGo-now\GetGo-now.iml" filepath="C:\wamp64\www\GetGo-v13\GetGo-v13\GetGo-now\GetGo-now.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../GetGo-v13/GetGo-v13/GetGo-now/GetGo-now.iml" filepath="$PROJECT_DIR$/../../../GetGo-v13/GetGo-v13/GetGo-now/GetGo-now.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\wamp64\www\GetGo-v13\GetGo-v13\GetGo-now\app\app.iml" filepath="C:\wamp64\www\GetGo-v13\GetGo-v13\GetGo-now\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../GetGo-v13/GetGo-v13/GetGo-now/app/app.iml" filepath="$PROJECT_DIR$/../../../GetGo-v13/GetGo-v13/GetGo-now/app/app.iml" />
     </modules>
   </component>
 </project>
