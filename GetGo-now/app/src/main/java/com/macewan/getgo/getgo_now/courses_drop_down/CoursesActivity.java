@@ -3,12 +3,18 @@ import com.macewan.getgo.getgo_now.R;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 
 import com.macewan.getgo.getgo_now.UIPages.*;
 import com.macewan.getgo.getgo_now.logic.LogicDB;
 import com.macewan.getgo.getgo_now.logic.LogicObject;
+import com.macewan.getgo.getgo_now.helper.*;
+import com.macewan.getgo.getgo_now.activity.*;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.AutoCompleteTextView.Validator;
 import android.text.TextUtils;
 import android.util.Log;
@@ -100,6 +106,48 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
         });
 
         lv.setAdapter(adapter);
+
+
+        // Bottom Navigation
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.ic_arrow:
+                        Intent intent0 = new Intent(CoursesActivity.this, MainActivity.class);
+                        startActivity(intent0);
+                        break;
+
+                    case R.id.ic_android:
+
+                        break;
+
+                    case R.id.ic_books:
+                        Intent intent2 = new Intent(CoursesActivity.this, SearchPage.class);
+                        startActivity(intent2);
+                        break;
+
+                    case R.id.ic_center_focus:
+                        Intent intent3 = new Intent(CoursesActivity.this, ResultPage.class);
+                        startActivity(intent3);
+                        break;
+
+                    /*case R.id.ic_backup:
+                        Intent intent4 = new Intent(CoursesActivity.this, ResultPage.class);
+                        startActivity(intent4);
+                        break;*/
+                }
+
+
+                return false;
+            }
+        });
     }
 
         //update the dictionary
