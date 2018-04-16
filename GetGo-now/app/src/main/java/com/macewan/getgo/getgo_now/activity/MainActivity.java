@@ -2,6 +2,11 @@ package com.macewan.getgo.getgo_now.activity;
 
 import com.macewan.getgo.getgo_now.UIPages.ResultPage;
 import com.macewan.getgo.getgo_now.UIPages.SearchPage;
+import com.macewan.getgo.getgo_now.helper.*;
+import com.macewan.getgo.getgo_now.activity.*;
+import com.macewan.getgo.getgo_now.R;
+import com.macewan.getgo.getgo_now.helper.SQLiteHandler;
+import com.macewan.getgo.getgo_now.helper.SessionManager;
 import com.macewan.getgo.getgo_now.adapter.*;
 import com.macewan.getgo.getgo_now.courses_drop_down.CoursesActivity;
 import com.macewan.getgo.getgo_now.helper.*;
@@ -19,6 +24,9 @@ import android.view.MenuItem;
 import com.macewan.getgo.getgo_now.R;
 
 public class MainActivity extends AppCompatActivity {
+	/* for Log Out */
+	private SQLiteHandler db;
+	private SessionManager session;
 	private static final String TAG = "MainActivity";
 
 	private SectionsPageAdapter mSectionsPageAdapter;
@@ -76,6 +84,21 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 
+	}
+
+	/**
+	 * Logging out the user. Will set isLoggedIn flag to false in shared
+	 * preferences Clears the user data from sqlite users table
+	 * */
+	private void logoutUser() {
+		session.setLogin(false);
+
+		db.deleteUsers();
+
+		// Launching the login activity
+		Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+		startActivity(intent);
+		finish();
 	}
 
 	private void setupViewPager(ViewPager viewPager) {

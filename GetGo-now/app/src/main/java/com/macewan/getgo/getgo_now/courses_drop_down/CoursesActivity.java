@@ -12,6 +12,9 @@ import com.macewan.getgo.getgo_now.logic.LogicDB;
 import com.macewan.getgo.getgo_now.logic.LogicObject;
 import com.macewan.getgo.getgo_now.helper.*;
 import com.macewan.getgo.getgo_now.activity.*;
+import com.macewan.getgo.getgo_now.R;
+import com.macewan.getgo.getgo_now.helper.SQLiteHandler;
+import com.macewan.getgo.getgo_now.helper.SessionManager;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +41,9 @@ import java.util.HashMap;
 
 public class CoursesActivity extends AppCompatActivity implements OnClickListener {
 
+    /* for Log Out */
+    private SQLiteHandler db;
+    private SessionManager session;
     /*These values are being referenced from the xml files*/
     private Button btnAdd;
     private Button btnDelete;
@@ -120,8 +126,7 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.ic_arrow:
-                        Intent intent0 = new Intent(CoursesActivity.this, LoginActivity.class);
-                        startActivity(intent0);
+                        logoutUser();
                         break;
 
                     case R.id.ic_books:
@@ -141,6 +146,20 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
         });
     }
 
+    /**
+     * Logging out the user. Will set isLoggedIn flag to false in shared
+     * preferences Clears the user data from sqlite users table
+     * */
+    private void logoutUser() {
+        session.setLogin(false);
+
+        db.deleteUsers();
+
+        // Launching the login activity
+        Intent intent = new Intent(CoursesActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
         //update the dictionary
     public HashMap after_add(String course, int mark){
 
