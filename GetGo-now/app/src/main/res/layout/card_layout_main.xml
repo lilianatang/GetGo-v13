@@ -34,12 +34,12 @@
                 android:scaleType="centerCrop"/>
 
             <TextView
-                android:layout_below="@+id/cardImage"
                 android:id="@+id/cardTitle"
-                android:gravity="center_vertical"
-                android:text="Card Title"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="30dp"
+                android:layout_below="@+id/cardImage"
+                android:gravity="center_vertical"
+                android:text="Card Title" />
 
             <ProgressBar
                 android:layout_width="50dp"

@@ -22,5 +22,8 @@
     <color name="condition1">#E0F2E9</color>
     <color name="colorWhite">#fff</color>
     <color name="colorGrey">#c3c3c3 </color>
+    <color name="titleColor">#CC5A71</color>
+    <color name="description">#80475E</color>
+    <color name="tech">#E4959E</color>
 
 </resources>

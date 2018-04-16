@@ -20,4 +20,17 @@
     <string name="enter_mark">Enter Mark</string>
     <string name="percent">%</string>
 
+    <!-- For Tab1 about the App -->
+    <string name="tab1_name">GET GO</string>
+    <string name="app_description">GetGo aims to provide high school students with
+immediate access to admission requirements at different universities in the area in a single app. Students can save
+time and more efficiently make appropriate judgements in regards to the educational path that they choose.
+    </string>
+
+    <string name="tech_description">Technologies Applied: </string>
+    <string name = "tech_description1">Native Mobile Application Development </string>
+    <string name = "tech_description2">1) Database system: MySQL </string>
+    <string name = "tech_description3"> 2) Web Server: PHP </string>
+    <string name = "tech_description4"> 3) Front-end: XML and Java </string>
+
 </resources>
