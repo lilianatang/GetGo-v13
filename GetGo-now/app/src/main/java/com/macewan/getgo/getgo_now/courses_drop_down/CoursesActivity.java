@@ -93,6 +93,7 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
         //Assigning variables to the list_box, the marks text box and the add button
         course_box = findViewById(R.id.autoCompleteTextView);
         mark_box = findViewById(R.id.editText);
+        check_marks_validility(mark_box);
         btnDelete = findViewById(R.id.delete);
         btnDelete.setOnClickListener(this);
         btnAdd = findViewById(R.id.add_button);
