@@ -29,18 +29,10 @@ public class Tab2Fragment extends Fragment {
 
         ArrayList<Card> list = new ArrayList<>();
 
-        list.add(new Card("drawable://" + R.drawable.arizona_dessert, "Arizona Dessert"));
-        list.add(new Card("drawable://" + R.drawable.bamf1, "Bamf"));
-        list.add(new Card("drawable://" + R.drawable.colorado_mountains, "Colorado Mountains"));
-        list.add(new Card("drawable://" + R.drawable.cork, "Cork"));
-        list.add(new Card("drawable://" + R.drawable.davenport_california, "DavenPort California"));
-        list.add(new Card("drawable://" + R.drawable.denmark_austrailia, "Denmark Austrailia"));
-        list.add(new Card("drawable://" + R.drawable.foggy_iceland, "Foggy Iceland"));
-        list.add(new Card("drawable://" + R.drawable.havasu_falls, "Havasu Falls"));
-        list.add(new Card("drawable://" + R.drawable.hawaii_rainforest, "Hawaii RainForest"));
-        list.add(new Card("drawable://" + R.drawable.newfoundland_ice, "NewFoundLand Ice"));
-        list.add(new Card("drawable://" + R.drawable.oregon_greens, "Oregon Greens"));
-        list.add(new Card("drawable://" + R.drawable.yosemite, "Yosemite"));
+        list.add(new Card("drawable://" + R.drawable.macewan, "MacEwan University"));
+        list.add(new Card("drawable://" + R.drawable.uofa, "University of Alberta"));
+        list.add(new Card("drawable://" + R.drawable.king, "King's University"));
+        list.add(new Card("drawable://" + R.drawable.concordia, "Concordia University"));
 
         CustomListAdapter adapter = new CustomListAdapter(getActivity(), R.layout.card_layout_main, list);
         mListView.setAdapter(adapter);
