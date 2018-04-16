@@ -175,8 +175,10 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
 
     //When buttton is clicked, joins the strings and places in tex box
     public void onClick(View v) {
+        String my_var;
         HashMap<String, Integer> courses_marks = new HashMap<>();
         String course_name = course_box.getText().toString();
+        check_marks_validility(mark_box);
         String course_mark = mark_box.getText().toString();
 
         switch (v.getId()){
