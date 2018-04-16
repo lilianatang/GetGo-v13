@@ -32,5 +32,6 @@ time and more efficiently make appropriate judgements in regards to the educatio
     <string name = "tech_description2">1) Database system: MySQL </string>
     <string name = "tech_description3"> 2) Web Server: PHP </string>
     <string name = "tech_description4"> 3) Front-end: XML and Java </string>
+    <string name="institutions">INSTITUTIONS</string>
 
 </resources>

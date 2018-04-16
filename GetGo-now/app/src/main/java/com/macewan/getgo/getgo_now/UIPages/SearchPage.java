@@ -19,6 +19,7 @@ import android.widget.Button;
 import com.macewan.getgo.getgo_now.Containers.ContainerAdapter;
 import com.macewan.getgo.getgo_now.Containers.DegreeContainer;
 import com.macewan.getgo.getgo_now.R;
+import com.macewan.getgo.getgo_now.activity.LoginActivity;
 import com.macewan.getgo.getgo_now.activity.MainActivity;
 import com.macewan.getgo.getgo_now.courses_drop_down.CoursesActivity;
 import com.macewan.getgo.getgo_now.helper.BottomNavigationViewHelper;
@@ -138,28 +139,19 @@ public class SearchPage extends Activity{
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.ic_arrow:
-                        Intent intent0 = new Intent(SearchPage.this, MainActivity.class);
+                        Intent intent0 = new Intent(SearchPage.this, LoginActivity.class);
                         startActivity(intent0);
                         break;
 
-                    case R.id.ic_android:
-
-                        break;
-
                     case R.id.ic_books:
-                        Intent intent2 = new Intent(SearchPage.this, SearchPage.class);
+                        Intent intent2 = new Intent(SearchPage.this, CoursesActivity.class);
                         startActivity(intent2);
                         break;
 
                     case R.id.ic_center_focus:
-                        Intent intent3 = new Intent(SearchPage.this, ResultPage.class);
+                        Intent intent3 = new Intent(SearchPage.this, MainActivity.class);
                         startActivity(intent3);
                         break;
-
-                    /*case R.id.ic_backup:
-                        Intent intent4 = new Intent(CoursesActivity.this, ResultPage.class);
-                        startActivity(intent4);
-                        break;*/
                 }
 
 

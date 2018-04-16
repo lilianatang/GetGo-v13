@@ -120,28 +120,19 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.ic_arrow:
-                        Intent intent0 = new Intent(CoursesActivity.this, MainActivity.class);
+                        Intent intent0 = new Intent(CoursesActivity.this, LoginActivity.class);
                         startActivity(intent0);
                         break;
 
-                    case R.id.ic_android:
-
-                        break;
-
                     case R.id.ic_books:
-                        Intent intent2 = new Intent(CoursesActivity.this, SearchPage.class);
+                        Intent intent2 = new Intent(CoursesActivity.this, CoursesActivity.class);
                         startActivity(intent2);
                         break;
 
                     case R.id.ic_center_focus:
-                        Intent intent3 = new Intent(CoursesActivity.this, ResultPage.class);
+                        Intent intent3 = new Intent(CoursesActivity.this, MainActivity.class);
                         startActivity(intent3);
                         break;
-
-                    /*case R.id.ic_backup:
-                        Intent intent4 = new Intent(CoursesActivity.this, ResultPage.class);
-                        startActivity(intent4);
-                        break;*/
                 }
 
 

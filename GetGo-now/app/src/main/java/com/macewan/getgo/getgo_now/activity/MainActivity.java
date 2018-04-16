@@ -56,27 +56,18 @@ public class MainActivity extends AppCompatActivity {
 			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 				switch (item.getItemId()){
 					case R.id.ic_arrow:
-
-						break;
-
-					case R.id.ic_android:
-						Intent intent1 = new Intent(MainActivity.this, CoursesActivity.class);
-						startActivity(intent1);
+						Intent intent0 = new Intent(MainActivity.this, LoginActivity.class);
+						startActivity(intent0);
 						break;
 
 					case R.id.ic_books:
-						Intent intent2 = new Intent(MainActivity.this, SearchPage.class);
+						Intent intent2 = new Intent(MainActivity.this, CoursesActivity.class);
 						startActivity(intent2);
 						break;
 
 					case R.id.ic_center_focus:
-						Intent intent3 = new Intent(MainActivity.this, ResultPage.class);
+						Intent intent3 = new Intent(MainActivity.this, MainActivity.class);
 						startActivity(intent3);
-						break;
-
-					case R.id.ic_backup:
-						Intent intent4 = new Intent(MainActivity.this, LoginActivity.class);
-						startActivity(intent4);
 						break;
 				}
 
