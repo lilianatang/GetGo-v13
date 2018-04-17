@@ -127,7 +127,7 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
                 int marks = Integer.parseInt(mark_box.getText().toString());
                 if (course_name.length() > 0 && course_mark.length() > 0) {
                     String join = course_name + "    " + course_mark + "%";
-                    //courses_marks = after_add(course_name, marks);
+                    courses_marks = after_add(course_name, marks);
                     adapter.add(join);
                     mark_box.setText("");
                     course_box.setText("");
