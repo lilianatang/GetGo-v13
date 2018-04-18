@@ -3,12 +3,21 @@ import com.macewan.getgo.getgo_now.R;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 
-import com.macewan.getgo.getgo_now.UIPages.HomePage;
+import com.macewan.getgo.getgo_now.UIPages.*;
 import com.macewan.getgo.getgo_now.logic.LogicDB;
 import com.macewan.getgo.getgo_now.logic.LogicObject;
+import com.macewan.getgo.getgo_now.helper.*;
+import com.macewan.getgo.getgo_now.activity.*;
+import com.macewan.getgo.getgo_now.R;
+import com.macewan.getgo.getgo_now.helper.SQLiteHandler;
+import com.macewan.getgo.getgo_now.helper.SessionManager;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.AutoCompleteTextView.Validator;
 import android.text.TextUtils;
 import android.util.Log;
@@ -32,6 +41,9 @@ import java.util.HashMap;
 
 public class CoursesActivity extends AppCompatActivity implements OnClickListener {
 
+    /* for Log Out */
+    private SQLiteHandler db;
+    private SessionManager session;
     /*These values are being referenced from the xml files*/
     private Button btnAdd;
     private Button btnDelete;
@@ -81,6 +93,7 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
         //Assigning variables to the list_box, the marks text box and the add button
         course_box = findViewById(R.id.autoCompleteTextView);
         mark_box = findViewById(R.id.editText);
+        check_marks_validility(mark_box);
         btnDelete = findViewById(R.id.delete);
         btnDelete.setOnClickListener(this);
         btnAdd = findViewById(R.id.add_button);
@@ -100,8 +113,54 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
         });
 
         lv.setAdapter(adapter);
+
+
+        // Bottom Navigation
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.ic_arrow:
+                        logoutUser();
+                        break;
+
+                    case R.id.ic_books:
+                        Intent intent2 = new Intent(CoursesActivity.this, CoursesActivity.class);
+                        startActivity(intent2);
+                        break;
+
+                    case R.id.ic_center_focus:
+                        Intent intent3 = new Intent(CoursesActivity.this, MainActivity.class);
+                        startActivity(intent3);
+                        break;
+                }
+
+
+                return false;
+            }
+        });
     }
 
+    /**
+     * Logging out the user. Will set isLoggedIn flag to false in shared
+     * preferences Clears the user data from sqlite users table
+     * */
+    private void logoutUser() {
+        session.setLogin(false);
+
+        db.deleteUsers();
+
+        // Launching the login activity
+        Intent intent = new Intent(CoursesActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
         //update the dictionary
     public HashMap after_add(String course, int mark){
 
@@ -116,8 +175,10 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
 
     //When buttton is clicked, joins the strings and places in tex box
     public void onClick(View v) {
+        String my_var;
         HashMap<String, Integer> courses_marks = new HashMap<>();
         String course_name = course_box.getText().toString();
+        check_marks_validility(mark_box);
         String course_mark = mark_box.getText().toString();
 
         switch (v.getId()){
@@ -149,7 +210,7 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
 
                 Log.d("Send to Search", "onClick: " + lst3.toString());
 
-                Intent myIntent = new Intent(CoursesActivity.this, HomePage.class);
+                Intent myIntent = new Intent(CoursesActivity.this, SearchPage.class);
                 startActivityForResult(myIntent, 1);
                 break;
         }

@@ -67,7 +67,7 @@ public class LoginActivity extends Activity {
             // User is already logged in. Take him to main activity
             //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
-            Intent intent = new Intent(LoginActivity.this, CoursesActivity.class);
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         }
