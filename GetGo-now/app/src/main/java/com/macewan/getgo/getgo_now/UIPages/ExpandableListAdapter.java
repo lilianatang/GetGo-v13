@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +57,25 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView child_text = (TextView) convertView.findViewById(R.id.child);
 
+        if (childText.contains("All requirements met.")) {
+            child_text.setTextColor(Color.parseColor("#008000"));
+        }
+        else {
+            child_text.setTextColor(Color.parseColor("#FF0000"));
+        }
+
         child_text.setText(childText);
+        int lastIndex = 0;
+        int count = 0;
+        while(lastIndex != -1) {
+            lastIndex = childText.indexOf("Unmet",lastIndex);
+            if(lastIndex != -1) {
+                count ++;
+                lastIndex += 5;
+            }
+        }
+
+        child_text.setLines((count)+4);
         return convertView;
     }
 
@@ -100,7 +119,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.header, parent, false);
         }
 
-        TextView header_text = (TextView) convertView.findViewById(R.id.header);
+        TextView header_text = convertView.findViewById(R.id.header);
 
         header_text.setText(headerTitle);
 
