@@ -169,7 +169,10 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
     }
 
     public HashMap after_delete(String course, HashMap dict){
-        dict.remove(course);
+        course.trim();
+        Log.d("Send to Search", "deleting: |" + course.trim() + "|");
+        dict.remove(course.trim());
+        Log.d("Send to Search", "New after removed: " + dict);
         return dict;
     }
 
@@ -197,8 +200,18 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
                 break;
                 //Delete button clicked, call remove
             case R.id.delete:
-                if(positionDelete >=0){
+                if(positionDelete >=0) {
+                    String line = list.get(positionDelete);
+                    Log.d("Send to Search", "line to split: " + line);
+                    String[] l = line.split(" ");
+                    String n = "";
+                    for (int i = 0; i < l.length - 2; i++) {
+                        n = n + " " + l[i];
+                    }
+                    Log.d("Send to Search", "New Line: " + n);
                     list.remove(positionDelete);
+                    Log.d("Send to Search", "Removing: " + n);
+                    after_delete(n, lst);
                     adapter.notifyDataSetChanged();
                 }
                 break;
@@ -207,6 +220,7 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
 
                 HashMap<String, Integer> lst3;
                 lst3 = CourseObject.getCourses(lst);
+
 
                 Log.d("Send to Search", "onClick: " + lst3.toString());
 
