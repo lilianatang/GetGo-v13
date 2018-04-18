@@ -1,33 +1,35 @@
 package com.macewan.getgo.getgo_now.UIPages;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
 import com.macewan.getgo.getgo_now.Containers.ContainerAdapter;
 import com.macewan.getgo.getgo_now.Containers.DegreeContainer;
-import com.macewan.getgo.getgo_now.ObjectClass.Results;
-import com.macewan.getgo.getgo_now.ObjectClass.Singleton;
-import com.macewan.getgo.getgo_now.ObjectClass.Student;
 import com.macewan.getgo.getgo_now.R;
-import android.view.View.*;
-import android.view.*;
-//import com.example.getgo.uidesign.Singlet;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import com.macewan.getgo.getgo_now.ObjectClass.Student;
-import com.macewan.getgo.getgo_now.courses_drop_down.CourseObject;
+import com.macewan.getgo.getgo_now.activity.LoginActivity;
+import com.macewan.getgo.getgo_now.activity.MainActivity;
+import com.macewan.getgo.getgo_now.courses_drop_down.CoursesActivity;
+import com.macewan.getgo.getgo_now.helper.BottomNavigationViewHelper;
 import com.macewan.getgo.getgo_now.logic.GetDatabase;
 import com.macewan.getgo.getgo_now.logic.LogicDB;
-import com.macewan.getgo.getgo_now.logic.LogicResults;
+
+import java.util.ArrayList;
+import java.util.List;
+
+//import com.example.getgo.uidesign.Singlet;
 
 /**
  * Created by Siham on 2018-03-16.
@@ -122,6 +124,38 @@ public class SearchPage extends Activity{
                     adapter_list.clear();
                 adapter_list.addAll(db.getDepartmentNames());
                 autoCompleteTextView.setAdapter(adapter_list);
+            }
+        });
+
+        // Bottom Navigation
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.ic_arrow:
+                        Intent intent0 = new Intent(SearchPage.this, LoginActivity.class);
+                        startActivity(intent0);
+                        break;
+
+                    case R.id.ic_books:
+                        Intent intent2 = new Intent(SearchPage.this, CoursesActivity.class);
+                        startActivity(intent2);
+                        break;
+
+                    case R.id.ic_center_focus:
+                        Intent intent3 = new Intent(SearchPage.this, MainActivity.class);
+                        startActivity(intent3);
+                        break;
+                }
+
+
+                return false;
             }
         });
     }

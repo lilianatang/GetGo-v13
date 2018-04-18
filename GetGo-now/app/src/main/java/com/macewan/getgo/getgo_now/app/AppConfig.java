@@ -9,15 +9,16 @@ public class AppConfig {
 	public static String URL_LOGIN = "http://"+ localhost + "/android_login_api/login.php";
 
 	// Server user register url
-	public static String URL_REGISTER = "http://"+ localhost + "/android_login_api/register.php";
+	public static String URL_REGISTER = "http://"+ localhost +  "/android_login_api/register.php";
 
 	// Department url
-	public static String URL_DEPARTMENT = "http://"+ localhost + "/android_login_api/db_department.php";
+	public static String URL_DEPARTMENT = "http://"+ localhost  + "/android_login_api/db_department.php";
 
 	// Conditions url
 	public static String URL_CONDITION = "http://"+ localhost + "/android_login_api/get_conditions.php";
 
 	// Condition Links url
+
 	public static String URL_CONDITION_LINK = "http://"+ localhost + "/android_login_api/get_condition_links.php";
 
 	//Groups url
@@ -28,4 +29,5 @@ public class AppConfig {
 
 	//Courses url
 	public static String URL_INSTITUTION = "http://"+ localhost +"/android_login_api/get_institutions.php";
+
 }
