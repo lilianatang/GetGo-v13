@@ -4,6 +4,28 @@ import android.app.Activity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AppCompatActivity;
+
+import com.macewan.getgo.getgo_now.UIPages.*;
+import com.macewan.getgo.getgo_now.courses_drop_down.CoursesActivity;
+import com.macewan.getgo.getgo_now.logic.LogicDB;
+import com.macewan.getgo.getgo_now.logic.*;
+import com.macewan.getgo.getgo_now.app.*;
+import com.macewan.getgo.getgo_now.helper.*;
+import com.macewan.getgo.getgo_now.activity.*;
+import com.macewan.getgo.getgo_now.R;
+import android.content.Intent;
+import android.os.Bundle;
+import com.macewan.getgo.getgo_now.helper.*;
+import com.macewan.getgo.getgo_now.helper.SessionManager;
+
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.AutoCompleteTextView.Validator;
+import android.text.TextUtils;
+import android.util.Log;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +44,9 @@ import com.macewan.getgo.getgo_now.logic.LogicDB;
 import com.macewan.getgo.getgo_now.logic.LogicResults;
 
 public class ResultPage extends Activity {
+    /* for Log Out */
+    private SQLiteHandler db1;
+    private SessionManager session;
     private ExpandableListView expandableListView;
     private ExpandableListAdapter adapter;
     private ArrayList<String> degree_names = new ArrayList<>();
@@ -52,7 +77,36 @@ public class ResultPage extends Activity {
         degree_names = getIntent().getStringArrayListExtra("degree_string");
         school_names = getIntent().getStringArrayListExtra("school_string");
 
+        // Bottom Navigation
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
 
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.ic_arrow:
+                        logoutUser();
+                        break;
+
+                    case R.id.ic_books:
+                        Intent intent2 = new Intent(ResultPage.this, CoursesActivity.class);
+                        startActivity(intent2);
+                        break;
+
+                    case R.id.ic_center_focus:
+                        Intent intent3 = new Intent(ResultPage.this, MainActivity.class);
+                        startActivity(intent3);
+                        break;
+                }
+
+
+                return false;
+            }
+        });
         setItems();
         setListener();
 
@@ -120,6 +174,20 @@ public class ResultPage extends Activity {
 
         // Setting adpater over expandablelistview
         expandableListView.setAdapter(adapter);
+    }
+    /**
+     * Logging out the user. Will set isLoggedIn flag to false in shared
+     * preferences Clears the user data from sqlite users table
+     * */
+    private void logoutUser() {
+        session.setLogin(false);
+
+        db1.deleteUsers();
+
+        // Launching the login activity
+        Intent intent = new Intent(ResultPage.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     // Setting different listeners to expandablelistview
