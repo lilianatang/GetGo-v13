@@ -37,6 +37,11 @@
             android:label="GetGo"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".UIPages.New_Search"
+            android:label="GetGo"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
             android:name=".UIPages.New_Search"

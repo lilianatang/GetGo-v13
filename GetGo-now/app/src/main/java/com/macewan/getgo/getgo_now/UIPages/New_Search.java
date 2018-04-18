@@ -61,12 +61,16 @@ public class New_Search extends Activity {
         enter = findViewById(R.id.enter);
 
         //get recyclerView reference
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         autoCompleteDegree = findViewById(R.id.degree);
         autoCompleteSchool = findViewById(R.id.institution);
 
+        //Retrieve data from singleton to db
+        jsonData  = LogicDB.getInstance(this.getBaseContext());
+        db = new GetDatabase(jsonData.logic_object.conditions,jsonData.logic_object.condition_links,jsonData.logic_object.groups,jsonData.logic_object.courses,jsonData.logic_object.institution,jsonData.logic_object.department);
+        db.getInstitutionNames();
 
         adapter_list = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item);
         adapter_list.addAll(db.getDepartmentNames());
