@@ -30,7 +30,7 @@ class Get_All_Courses
  */
     // array for JSON response
         $response = array();
-        $query = "SELECT * from course"; 
+        $query = "SELECT * from courses"; 
     // get all products from products table
         $result = mysqli_query($this->connection, $query) or die(mysqli_error($this->connection));
 // check for empty result
