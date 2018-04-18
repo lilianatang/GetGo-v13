@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:textColor="#ff00"
+        android:textColor="#0015ff"
         android:drawablePadding="10dp"
         android:textSize="18sp" />
 
