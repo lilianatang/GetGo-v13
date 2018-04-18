@@ -5,13 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
@@ -21,11 +16,7 @@ import android.widget.Toast;
 
 import com.macewan.getgo.getgo_now.ObjectClass.Singleton;
 import com.macewan.getgo.getgo_now.R;
-import com.macewan.getgo.getgo_now.activity.LoginActivity;
-import com.macewan.getgo.getgo_now.activity.MainActivity;
 import com.macewan.getgo.getgo_now.courses_drop_down.CourseObject;
-import com.macewan.getgo.getgo_now.courses_drop_down.CoursesActivity;
-import com.macewan.getgo.getgo_now.helper.BottomNavigationViewHelper;
 import com.macewan.getgo.getgo_now.logic.GetDatabase;
 import com.macewan.getgo.getgo_now.logic.LogicDB;
 import com.macewan.getgo.getgo_now.logic.LogicResults;
@@ -35,6 +26,7 @@ public class ResultPage extends Activity {
     private ExpandableListAdapter adapter;
     private ArrayList<String> degree_names = new ArrayList<>();
     private ArrayList<String> school_names = new ArrayList<>();
+    private HashMap<String, Integer> marks;
     public Singleton s;
     LogicDB jsonData;
     GetDatabase db;
@@ -44,44 +36,16 @@ public class ResultPage extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
         s = Singleton.getInstance(this.getBaseContext());
-        // Bottom Navigation
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(1);
-        menuItem.setChecked(true);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.ic_arrow:
-                        Intent intent0 = new Intent(ResultPage.this, LoginActivity.class);
-                        startActivity(intent0);
-                        break;
-
-                    case R.id.ic_books:
-                        Intent intent2 = new Intent(ResultPage.this, CoursesActivity.class);
-                        startActivity(intent2);
-                        break;
-
-                    case R.id.ic_center_focus:
-                        Intent intent3 = new Intent(ResultPage.this, MainActivity.class);
-                        startActivity(intent3);
-                        break;
-                }
-
-
-                return false;
-            }
-        });
 
         //Get Database Class Reference
         jsonData  = LogicDB.getInstance(this.getBaseContext());
         db = new GetDatabase(jsonData.logic_object.conditions,jsonData.logic_object.condition_links,jsonData.logic_object.groups,jsonData.logic_object.courses,jsonData.logic_object.institution,jsonData.logic_object.department);
 
+        marks = CourseObject.getCourses(null);
+        Log.d("Marks", "sendToLogic: " + marks);
+        this.getBaseContext();
 
-        expandableListView = (ExpandableListView) findViewById(R.id.simple_expandable_listview);
+        expandableListView = findViewById(R.id.simple_expandable_listview);
 
         // Setting group indicator null for custom indicator
         expandableListView.setGroupIndicator(null);
@@ -101,9 +65,6 @@ public class ResultPage extends Activity {
 
         Log.d("degreeString", "sendToLogic: " + degree_names);
         Log.d("schoolString","sendToLogic"  + school_names);
-        HashMap<String, Integer> marks;
-        marks = CourseObject.getCourses(null);
-        Log.d("Marks", "sendToLogic: " + marks);
         this.getBaseContext();
         ArrayList<LogicResults> list = new ArrayList<LogicResults>();
 
@@ -119,10 +80,16 @@ public class ResultPage extends Activity {
         }
         else if(degree_names.size() != 0){
             list = db.getResultbyFaculty(this.getBaseContext(), degree_names, marks);
+
+        }
+        ArrayList<String> schoolHeader = new ArrayList<>();
+        for (LogicResults result : list) {
+            if (!schoolHeader.contains(result.university_name)) {
+                schoolHeader.add(result.university_name);
+            }
         }
 
-
-        for (String school : school_names) {
+        for (String school : schoolHeader) {
             List<String> resultString = new ArrayList<>();
             for (LogicResults result : list) {
                 if (result.university_name.equals(school)) {
@@ -138,7 +105,6 @@ public class ResultPage extends Activity {
                     }
                     else {
                         for (Object condition : (ArrayList)result.results.get(0)) {
-                            Log.d("unmet:",condition.toString());
                             container.append("Unmet Condition: "+ condition.toString()+"\n");
                         }
                     }
@@ -150,7 +116,7 @@ public class ResultPage extends Activity {
 
 
 
-        adapter = new ExpandableListAdapter(ResultPage.this, school_names, hashMap);
+        adapter = new ExpandableListAdapter(ResultPage.this, schoolHeader, hashMap);
 
         // Setting adpater over expandablelistview
         expandableListView.setAdapter(adapter);
@@ -193,7 +159,7 @@ public class ResultPage extends Activity {
                 });
 
         // This listener will show toast on child click
-        expandableListView.setOnChildClickListener(new OnChildClickListener() {
+        /*expandableListView.setOnChildClickListener(new OnChildClickListener() {
 
             @Override
             public boolean onChildClick(ExpandableListView listview, View view,
@@ -204,6 +170,6 @@ public class ResultPage extends Activity {
                         Toast.LENGTH_SHORT).show();
                 return false;
             }
-        });
+        });*/
     }
 }
