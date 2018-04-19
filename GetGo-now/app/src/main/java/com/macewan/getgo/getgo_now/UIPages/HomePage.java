@@ -75,7 +75,7 @@ public class HomePage extends AppCompatActivity {
         containerList = new ArrayList<>();
         for (int i = 0; i < departments.size(); i++) {
             containerList.add(
-                    new DegreeContainer(departments.get(i).toString(), "Universty"));
+                    new DegreeContainer(departments.get(i).toString(), "Universty", null));
         }
 
         schoolContainer = new ArrayList<>();

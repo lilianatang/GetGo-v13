@@ -83,7 +83,7 @@ public class SearchPage extends Activity{
         autoCompleteTextView.setOnKeyListener(new OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                    addContainer(autoCompleteTextView.getText().toString());
+                    //addContainer(autoCompleteTextView.getText().toString());
                     return true;
                 }
                 return false;
@@ -185,6 +185,7 @@ public class SearchPage extends Activity{
     }*/
 
     //When Called, fills container With name of Selected items
+    /*
     public void addContainer(String name){
         DegreeContainer temp = new DegreeContainer(name,null);
         if(containerList.contains(temp.getTitle())){
@@ -206,5 +207,5 @@ public class SearchPage extends Activity{
                 autoCompleteTextView.setText("");
             }
         }
-    }
+    }*/
 }

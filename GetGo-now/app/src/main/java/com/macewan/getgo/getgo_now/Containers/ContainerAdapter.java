@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.macewan.getgo.getgo_now.R;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -30,6 +32,7 @@ public class ContainerAdapter extends RecyclerView.Adapter<ContainerAdapter.Prod
     private OnItemClickListener listener;
     public List<DegreeContainer> containerDegreeList;
     public List<InstitutionContainer> containerInstitutionList;
+    public HashMap<String, ArrayList<String>> hashMap;
 
     public interface OnItemClickListener{
         void onItemClick(View item);
@@ -64,7 +67,7 @@ public class ContainerAdapter extends RecyclerView.Adapter<ContainerAdapter.Prod
         if(containerDegreeList != null) {
             DegreeContainer container = containerDegreeList.get(position);
             holder.textViewTitle.setText(container.getTitle());
-            holder.textViewDescription.setText(container.getDefinition());
+            holder.textViewDescription.setText(container.getList().toString());
             holder.linearLayout2.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
@@ -97,6 +100,7 @@ public class ContainerAdapter extends RecyclerView.Adapter<ContainerAdapter.Prod
     //Bind the containers on holder
     class ProductViewHolder extends RecyclerView.ViewHolder {
         TextView textViewTitle, textViewDescription, textView;
+
         RelativeLayout linearLayout, linearLayout2;
 
         @SuppressLint("WrongViewCast")

@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,7 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-
+import java.util.Iterator;
 import com.macewan.getgo.getgo_now.Containers.ContainerAdapter;
 import com.macewan.getgo.getgo_now.Containers.DegreeContainer;
 import com.macewan.getgo.getgo_now.R;
@@ -26,6 +27,7 @@ import com.macewan.getgo.getgo_now.logic.GetDatabase;
 import com.macewan.getgo.getgo_now.logic.LogicDB;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -37,11 +39,13 @@ public class New_Search extends Activity {
     private AutoCompleteTextView autoCompleteDegree;
     private AutoCompleteTextView autoCompleteSchool;
     public ArrayAdapter<String> adapter_list;
-    Button degree;
+    public ArrayAdapter<String> adapter_list2;
+    Button add;
     Button school;
     Button city;
     RecyclerView recyclerView;
-    public List<DegreeContainer> containerList = new ArrayList<DegreeContainer>();
+    HashMap<String, ArrayList<String>> MainHash = new HashMap<>();
+
     ContainerAdapter adapter;
     Button enter;
     ArrayList<String> degree_names = new ArrayList<>();
@@ -57,40 +61,44 @@ public class New_Search extends Activity {
         setContentView(R.layout.new_search);
 
         //button initialize
-        degree = findViewById(R.id.add);
+        add = findViewById(R.id.add);
         enter = findViewById(R.id.enter);
 
         //get recyclerView reference
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        autoCompleteDegree = findViewById(R.id.degree);
-        autoCompleteSchool = findViewById(R.id.institution);
+        autoCompleteDegree = findViewById(R.id.Degree);
+        autoCompleteSchool = findViewById(R.id.Institution);
 
         //Retrieve data from singleton to db
         jsonData  = LogicDB.getInstance(this.getBaseContext());
         db = new GetDatabase(jsonData.logic_object.conditions,jsonData.logic_object.condition_links,jsonData.logic_object.groups,jsonData.logic_object.courses,jsonData.logic_object.institution,jsonData.logic_object.department);
         db.getInstitutionNames();
 
+        //Fill DropDown
         adapter_list = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item);
+        adapter_list2 = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item);
         adapter_list.addAll(db.getDepartmentNames());
+        adapter_list.add("All");
         autoCompleteDegree.setAdapter(adapter_list);
 
-        adapter_list.addAll(db.getInstitutionNames());
+        adapter_list2.addAll(db.getInstitutionNames());
+        adapter_list2.add("All");
         autoCompleteSchool.setAdapter(adapter_list);
 
-        degree.setOnClickListener(new View.OnClickListener() {
+
+        add.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 addContainer(autoCompleteDegree.getText().toString(), autoCompleteSchool.getText().toString());
             }
         });
 
-        //When enter is clicked, go to new page
+        //When enter is clicked, go to new page, Send Hash TO Result Page
         enter.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent intent = new Intent(New_Search.this, ResultPage.class);
-                intent.putStringArrayListExtra("degree_string", degree_names);
-                intent.putStringArrayListExtra("school_string", school_names);
+                intent.putExtra("Hash", MainHash);
                 startActivity(intent);
             }
         });
@@ -129,23 +137,37 @@ public class New_Search extends Activity {
 
 
     }
-
-    public void addContainer(String Degree, String School){
-        DegreeContainer temp = new DegreeContainer(Degree + " " + School,null);
-        if(containerList.contains(temp.getTitle())){
-            return;
+    //Add the hash to the container and view
+    public void addToView() {
+        Iterator it = MainHash.entrySet().iterator();
+        List<DegreeContainer> containerList = new ArrayList<DegreeContainer>();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) it.next();
+            DegreeContainer temp = new DegreeContainer(pair.getKey().toString(), null, (ArrayList<String>) pair.getValue());
+            containerList.add(temp);
         }
-        else{
-                degree_names.add(Degree);
-                containerList.add(temp);
-                adapter = new ContainerAdapter(this, containerList, null);
-                recyclerView.setAdapter(adapter);
-                autoCompleteDegree.setText("");
+        adapter = new ContainerAdapter(this, containerList, null);
+        recyclerView.setAdapter(adapter);
+    }
 
-                school_names.add(School);
-                containerList.add(temp);
-                adapter = new ContainerAdapter(this, containerList, null);
-                recyclerView.setAdapter(adapter);
+    //Check to see if the container is already added then call addview
+    public void addContainer(String Degree, String School) {
+
+            ArrayList<String> DegreeList = new ArrayList<>();
+            if (MainHash.containsKey(School)) {
+                DegreeList = MainHash.get(School);
+                if (DegreeList.contains(Degree)) {
+                    Log.d("AddContainer", "Contains Degree: " + Degree);
+                } else {
+                    DegreeList.add(Degree);
+                    MainHash.put(School, DegreeList);
+                }
+            } else {
+                DegreeList.add(Degree);
+                MainHash.put(School, DegreeList);
+                autoCompleteDegree.setText("");
             }
+            addToView();
+            Log.d("Hash Map", "addContainer: " + MainHash);
         }
 }

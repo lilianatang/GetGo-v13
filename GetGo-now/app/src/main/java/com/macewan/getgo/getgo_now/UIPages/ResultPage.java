@@ -55,6 +55,7 @@ public class ResultPage extends Activity {
     public Singleton s;
     LogicDB jsonData;
     GetDatabase db;
+    HashMap<String, String> hashMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +75,7 @@ public class ResultPage extends Activity {
 
         // Setting group indicator null for custom indicator
         expandableListView.setGroupIndicator(null);
-        degree_names = getIntent().getStringArrayListExtra("degree_string");
-        school_names = getIntent().getStringArrayListExtra("school_string");
+        hashMap = (HashMap<String, String>)getIntent().getSerializableExtra("Hash");
 
         // Bottom Navigation
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
@@ -116,13 +116,14 @@ public class ResultPage extends Activity {
     void setItems() {
 
         HashMap<String, List<String>> hashMap = new HashMap<>();
-
-        Log.d("degreeString", "sendToLogic: " + degree_names);
-        Log.d("schoolString","sendToLogic"  + school_names);
         this.getBaseContext();
         ArrayList<LogicResults> list = new ArrayList<LogicResults>();
 
+        //Send Hash to Logic Here -->
+        Log.d("Hash Map", "setItems: " + hashMap);
+
         //Check the strings depending on which one is selected.
+        /*
         if(degree_names.size() == 0 && school_names.size() == 0) {
             Log.d("Nothing to Display", "Empty Strings");
         }
@@ -135,7 +136,7 @@ public class ResultPage extends Activity {
         else if(degree_names.size() != 0){
             list = db.getResultbyFaculty(this.getBaseContext(), degree_names, marks);
 
-        }
+        }*/
         ArrayList<String> schoolHeader = new ArrayList<>();
         for (LogicResults result : list) {
             if (!schoolHeader.contains(result.university_name)) {

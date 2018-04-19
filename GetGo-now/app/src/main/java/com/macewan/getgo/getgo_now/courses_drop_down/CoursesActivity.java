@@ -224,7 +224,7 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
 
                 Log.d("Send to Search", "onClick: " + lst3.toString());
 
-                Intent myIntent = new Intent(CoursesActivity.this, SearchPage.class);
+                Intent myIntent = new Intent(CoursesActivity.this, New_Search.class);
                 startActivityForResult(myIntent, 1);
                 break;
         }
