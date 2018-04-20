@@ -18,7 +18,6 @@ public class AppConfig {
 	public static String URL_CONDITION = "http://"+ localhost + "/android_login_api/get_conditions.php";
 
 	// Condition Links url
-
 	public static String URL_CONDITION_LINK = "http://"+ localhost + "/android_login_api/get_condition_links.php";
 
 	//Groups url
