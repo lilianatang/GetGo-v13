@@ -31,11 +31,7 @@ public class GetDatabase {
         conditionsList = parseCondition(conditionJson);
         conditionLinksList = parseConditionLinks(linksJson);
         groupsList = parseGroups(groupsJson);
-        Log.d("courseJson",courseJson);
         courseList = parseCourses(courseJson);
-        for (Course course:courseList) {
-            Log.d("course",course.course_name);
-        }
         institutionsList = parseInstitutions(institutionJson);
         departmentsList = parseDepartments(departmentJson);
     }
@@ -126,10 +122,10 @@ public class GetDatabase {
 
     }
 
-    public ArrayList<LogicResults> getResultbySchool(Context context, ArrayList<String> schools, HashMap<String,Integer> student) {
+    public ArrayList<LogicResults> getResultbySchool(Context context, String school, HashMap<String,Integer> student) {
         ArrayList<LogicResults> results = new ArrayList<>();
         CourseLogic logic = new CourseLogic();
-        for (String school : schools) {
+
             String schoolID = new String();
             for (Institutions institution : institutionsList) {
                 if (institution.school_name.equals(school)) {
@@ -143,31 +139,46 @@ public class GetDatabase {
                     results.add(logicResults);
                 }
             }
-        }
         return results;
     }
 
-    public ArrayList<LogicResults> getResultbyBoth(Context context, ArrayList<String> schools, ArrayList<String> facultys, HashMap<String,Integer> student) {
+    public ArrayList<LogicResults> getResultbyBoth(Context context, String school, ArrayList<String> facultys, HashMap<String,Integer> student) {
         CourseLogic logic = new CourseLogic();
         ArrayList<LogicResults> results = new ArrayList<>();
-        for (String school : schools) {
-            String schoolID = new String();
-            for (Institutions institution : institutionsList) {
-                if (institution.school_name.equals(school)) {
-                    schoolID = institution.university_id;
-                }
+
+        String schoolID = new String();
+        for (Institutions institution : institutionsList) {
+            if (institution.school_name.equals(school)) {
+                schoolID = institution.university_id;
             }
-            for (String fac : facultys) {
-                for (Departments dept : departmentsList) {
-                    if (dept.department_name.equals(fac) && dept.university_id.equals(schoolID)) {
-                        ArrayList result = logic.checkLogic(dept.university_id, dept.department_id, context, student);
-                        LogicResults logicResults = new LogicResults(getUniversityName(dept.university_id), fac, result);
-                        results.add(logicResults);
-                    }
+        }
+        for (String fac : facultys) {
+            for (Departments dept : departmentsList) {
+                if (dept.department_name.equals(fac) && dept.university_id.equals(schoolID)) {
+                    ArrayList result = logic.checkLogic(dept.university_id, dept.department_id, context, student);
+                    LogicResults logicResults = new LogicResults(school, fac, result);
+                    results.add(logicResults);
                 }
             }
         }
 
+
+        return results;
+    }
+
+    public ArrayList<LogicResults> getAll(Context context, HashMap<String,Integer> student) {
+        CourseLogic logic = new CourseLogic();
+        ArrayList<LogicResults> results = new ArrayList<>();
+
+        for (Institutions institution : institutionsList) {
+            for (Departments dept: departmentsList) {
+                if (dept.university_id.equals(institution.university_id)) {
+                    ArrayList result = logic.checkLogic(dept.university_id, dept.department_id, context, student);
+                    LogicResults logicResults = new LogicResults(institution.school_name, dept.department_name, result);
+                    results.add(logicResults);
+                }
+            }
+        }
         return results;
     }
 }

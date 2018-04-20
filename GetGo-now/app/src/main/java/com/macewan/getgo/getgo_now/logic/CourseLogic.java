@@ -48,7 +48,7 @@ public class CourseLogic {
             }
             courses.add(groupCourses);
         }
-
+        Log.d("Courses",courses.toString());
         for (ArrayList list : courses) {
             ArrayList<String> names = new ArrayList<>();
             for (Object id : list) {
@@ -140,6 +140,7 @@ public class CourseLogic {
 
 
     public static ArrayList checkCourse (Map<String, Integer> student, ArrayList<ArrayList<String>> faculty, int average){
+        Log.d("Logic Check", faculty.toString());
         ArrayList result = new ArrayList();
         Map<String, Integer> thisStudent;
         ArrayList<Integer> courseMarks = new ArrayList<>();
@@ -148,11 +149,13 @@ public class CourseLogic {
         for (ArrayList courseList : faculty) {
             boolean found = false;
             for (Object course : courseList){
-                if (thisStudent.get(course) != null){
-                    courseMarks.add(thisStudent.get(course));
-                    thisStudent.remove(course);
-                    found = true;
-                    break;
+                if (thisStudent.get(course) != null) {
+                    if (thisStudent.get(course) >= 50) {
+                        courseMarks.add(thisStudent.get(course));
+                        thisStudent.remove(course);
+                        found = true;
+                        break;
+                    }
                 }
             }
             if(!found){
