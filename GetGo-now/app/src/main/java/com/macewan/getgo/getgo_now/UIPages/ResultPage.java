@@ -3,7 +3,10 @@ package com.macewan.getgo.getgo_now.UIPages;
 import android.app.Activity;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -55,7 +58,7 @@ public class ResultPage extends Activity {
     public Singleton s;
     LogicDB jsonData;
     GetDatabase db;
-    HashMap<String, String> hashMap;
+    HashMap<String, ArrayList<String>> searchHash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +78,7 @@ public class ResultPage extends Activity {
 
         // Setting group indicator null for custom indicator
         expandableListView.setGroupIndicator(null);
-        hashMap = (HashMap<String, String>)getIntent().getSerializableExtra("Hash");
+        searchHash = (HashMap<String, ArrayList<String>>)getIntent().getSerializableExtra("Hash");
 
         // Bottom Navigation
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
@@ -114,13 +117,35 @@ public class ResultPage extends Activity {
 
     // Setting headers and childs to expandable listview
     void setItems() {
-
         HashMap<String, List<String>> hashMap = new HashMap<>();
         this.getBaseContext();
         ArrayList<LogicResults> list = new ArrayList<LogicResults>();
 
+        Iterator it = searchHash.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            ArrayList<String> facList = (ArrayList<String>)pair.getValue();
+            if (pair.getKey().equals("All")) {
+                if (facList.contains("All")) {
+                    list.addAll(db.getAll(this.getBaseContext(),marks));
+                }
+                else {
+                    list.addAll(db.getResultbyFaculty(this.getBaseContext(), facList, marks));
+                }
+            }
+            else {
+                if (facList.contains("All")) {
+                    list.addAll(db.getResultbySchool(this.getBaseContext(), (String)pair.getKey(), marks));
+                }
+                else {
+                    list.addAll(db.getResultbyBoth(this.getBaseContext(), (String)pair.getKey(), facList, marks));
+                }
+            }
+
+        }
+
         //Send Hash to Logic Here -->
-        Log.d("Hash Map", "setItems: " + hashMap);
+        Log.d("Hash Map", "setItems: " + searchHash);
 
         //Check the strings depending on which one is selected.
         /*
