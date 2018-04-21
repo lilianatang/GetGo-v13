@@ -85,7 +85,7 @@ public class New_Search extends Activity {
 
         adapter_list2.addAll(db.getInstitutionNames());
         adapter_list2.add("All");
-        autoCompleteSchool.setAdapter(adapter_list);
+        autoCompleteSchool.setAdapter(adapter_list2);
 
 
         add.setOnClickListener(new View.OnClickListener() {

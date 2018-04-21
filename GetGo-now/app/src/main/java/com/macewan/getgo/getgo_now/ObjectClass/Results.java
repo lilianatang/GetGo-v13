@@ -63,7 +63,7 @@ public class Results extends Activity {
         Log.d("Marks", "sendToLogic: " + marks);
         this.getBaseContext();
         ArrayList<LogicResults> list = new ArrayList<LogicResults>();
-
+/*
         //Check the strings depending on which one is selected.
         if(degree_names.size() == 0 && school_names.size() == 0) {
             Log.d("Nothing to Display", "Empty Strings");
@@ -77,7 +77,7 @@ public class Results extends Activity {
         else if(degree_names.size() != 0){
             list = db.getResultbyFaculty(this.getBaseContext(), degree_names, marks);
         }
-
+*/
         adapter = new LogicAdapter(this.getBaseContext(), list);
         recyclerView.setAdapter(adapter);
     }
