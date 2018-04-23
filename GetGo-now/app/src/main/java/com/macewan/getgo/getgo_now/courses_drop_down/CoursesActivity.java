@@ -195,6 +195,7 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
                     adapter.add(join);
                     mark_box.setText("");
                     course_box.setText("");
+
                     Log.d("list_tag", "In List:  " + adapter.getItem(0));
                 }
                 break;
@@ -219,10 +220,10 @@ public class CoursesActivity extends AppCompatActivity implements OnClickListene
             case R.id.submit_button:
 
                 HashMap<String, Integer> lst3;
-                lst3 = CourseObject.getCourses(lst);
+                lst3 = CourseObject.update(lst);
 
-
-                Log.d("Send to Search", "onClick: " + lst3.toString());
+                Log.d("Send to Search", "onClick1: " + lst.toString());
+                Log.d("Send to Search", "onClick2: " + lst3.toString());
 
                 Intent myIntent = new Intent(CoursesActivity.this, New_Search.class);
                 startActivityForResult(myIntent, 1);
